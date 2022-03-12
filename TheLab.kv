@@ -1,0 +1,210 @@
+WindowManager:
+    MainWindow:
+    MondayWindow:
+    TuesdayWindow:
+
+# Основное окно
+<MainWindow>:
+    name: "main_window"
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/wallper4.png"
+
+        # Сон
+        ImButton:
+            size_hint: .45, .45
+            pos_hint: {"x": .12, "y": .5}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.sleep_on()
+            on_release: root.sleep_off()
+
+            id: sleep_image
+            source: "images/sleep.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        # Дела
+        ImButton:
+            size_hint: .45, .45
+            pos_hint: {"x": .5, "y": .5}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.tasks_on()
+            on_release:
+                root.tasks_off()
+                app.root.current = "monday_window"
+                root.manager.transition.direction = "up"
+
+            id: tasks_image
+            source: "images/task.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        # Цели
+        ImButton:
+            size_hint: .45, .45
+            pos_hint: {"x": .12, "y": .25}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.goal_on()
+            on_release: root.goal_off()
+
+            id: goal_image
+            source: "images/goal.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        # Кнопки открыть/закрыть/задачи
+        #Красная
+        ImButton:
+            size_hint: .26, .26
+            pos_hint: {"x": .47, "y": .8}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.red_on()
+            on_release: root.red_off()
+
+            id: bip_red_image
+            source: "images/bip_red.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        #Желтая
+        ImButton:
+            size_hint: .26, .26
+            pos_hint: {"x": .61, "y": .8}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.yellow_on()
+            on_release: root.yellow_off()
+
+            id: bip_yellow_image
+            source: "images/bip_yellow.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        #Зеленая
+        ImButton:
+            size_hint: .26, .26
+            pos_hint: {"x": .75, "y": .8}
+            background_color: 0, 0, 0, 0
+
+            on_press: root.green_on()
+            on_release: root.green_off()
+
+            id: bip_green_image
+            source: "images/bip_green.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+# Вкладка <Дела>
+<MondayWindow>:
+    name: "monday_window"
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/wallper2.png"
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .001, "y": .9}
+            background_color: 0, 0, 0, 0
+
+            on_release:
+                app.root.current = "tuesday_window"
+                root.manager.transition.direction = "right"
+
+            id: monday_left_image
+            source: "images/left.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .9, "y": .9}
+            background_color: 0, 0, 0, 0
+
+            on_release:
+                app.root.current = "tuesday_window"
+                root.manager.transition.direction = "left"
+
+            id: monday_right_image
+            source: "images/right.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+        ImButton:
+            text: "Home"
+            size_hint: .1, .1
+
+            on_release:
+                app.root.current = "main_window"
+                root.manager.transition.direction = "down"
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .9, "y": .001}
+            background_color: 0, 0, 0, 0
+
+            id: monday_plus_image
+            source: "images/plus.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+<TuesdayWindow>:
+    name: "tuesday_window"
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/wallper2.png"
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .001, "y": .9}
+            background_color: 0, 0, 0, 0
+
+            on_release:
+                app.root.current = "monday_window"
+                root.manager.transition.direction = "right"
+
+
+            id: tuesday_left_image
+            source: "images/left.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .9, "y": .9}
+            background_color: 0, 0, 0, 0
+
+            on_release:
+                app.root.current = "monday_window"
+                root.manager.transition.direction = "left"
+
+            id: tuesday_right_image
+            source: "images/right.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+        ImButton:
+            text: "Home"
+            size_hint: .1, .1
+
+            on_release:
+                app.root.current = "main_window"
+                root.manager.transition.direction = "down"
+
+        ImButton:
+            size_hint: .1, .1
+            pos_hint: {"x": .9, "y": .001}
+            background_color: 0, 0, 0, 0
+
+            id: tuesday_plus_image
+            source: "image/plus.png"
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
