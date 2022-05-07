@@ -9,7 +9,7 @@ class MainApp(MDApp):
 
 
 
-        return Builder.load_file('sd1.kv')
+        return Builder.load_file('TheLab.kv')
 
 class MenuScreen(Screen):
     pass
