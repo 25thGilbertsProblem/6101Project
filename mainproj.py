@@ -1,6 +1,13 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+#only for sleep hints:
+from Sasha_Brunch.sleep_hints import hints, links
+from random import randint
+import webbrowser
+
+
 class MainApp(MDApp):
 
     def build(self):
@@ -9,7 +16,7 @@ class MainApp(MDApp):
 
 
 
-        return Builder.load_file('TheLab.kv')
+        return Builder.load_file('sd1.kv')
 
 class MenuScreen(Screen):
     pass
@@ -17,8 +24,23 @@ class MenuScreen(Screen):
 class NoteScreen(Screen):
     pass
 
+########
+# Sleep
+
+i = randint(0, 8)
+
+
+def open_link():
+    global i
+    webbrowser.open(links[i])
+    return i
+#########
+
 class SleepScreen(Screen):
-    pass
+    hint = hints[i]
+
+    def prove(instance):
+        open_link()
 
 class TaskScreen(Screen):
     pass
