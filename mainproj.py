@@ -3,7 +3,7 @@ from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 #only for sleep hints:
-from Sasha_Brunch.sleep_hints import hints, links
+from sleep_hints import hints, links
 from random import randint
 import webbrowser
 
