@@ -115,6 +115,21 @@ ScreenManager:
                 icon: "plus"
                 pos: 200, 10
 
+            MDLabel:
+                text: 'Hints for sleep improvement:'
+                halign: 'center'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                font_size: 30
+
+            MDRoundFlatButton:
+                text: 'actual hint'
+                halign: 'center'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.74}
+                font_size: 20
+                on_press: root.prove()
+                text: root.hint
+
+
 
 
 <TaskScreen>:
@@ -131,5 +146,6 @@ ScreenManager:
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press: root.manager.current = 'menu'
+
 
 
