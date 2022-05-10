@@ -6,20 +6,41 @@ ScreenManager:
 
 <MenuScreen>:
     name: "menu"
+
     MDBoxLayout:
         orientation: 'vertical'
 
 
         MDScreen:
 
+            MDBottomAppBar:
+                MDToolbar:
+                    elevation:10
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.navigation_draw()
+
+            MDCard:
+                radius:30
+                size_hint_x: ".45"
+                size_hint_y: ".25"
+                pos_hint: {"center_x": .5, "center_y": .55}
+
+
+
             #Task
+
             MDFloatingActionButton:
 
                 icon: "check-bold"
                 pos_hint: {"center_x": .4, "center_y": .6}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'task'
+                on_press:
+                    root.manager.transition.direction = "left"
+                    root.manager.current = 'task'
 
             #Sleep
             MDFloatingActionButton:
@@ -28,7 +49,9 @@ ScreenManager:
                 pos_hint: {"center_x": .4, "center_y": .5}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'sleep'
+                on_press:
+                    root.manager.transition.direction = "left"
+                    root.manager.current = 'sleep'
 
             #Notes
             MDFloatingActionButton:
@@ -37,7 +60,9 @@ ScreenManager:
                 pos_hint: {"center_x": .6, "center_y": .6}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'note'
+                on_press:
+                    root.manager.transition.direction = "left"
+                    root.manager.current = 'note'
 
 
             #Edit
@@ -47,6 +72,7 @@ ScreenManager:
                 pos_hint: {"center_x": .6, "center_y": .5}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
+                on_press:app.theme_cls.theme_style = "Light" if app.theme_cls.theme_style == "Dark" else 'Dark'
 
 
 <NoteScreen>:
@@ -56,13 +82,24 @@ ScreenManager:
 
         MDScreen:
 
+            MDBottomAppBar:
+                MDToolbar:
+                    elevation:10
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.navigation_draw()
+
             MDFloatingActionButton:
                 id: button
-                icon: "minus"
+                icon: "arrow-left"
                 pos: 10, 10
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'menu'
+                on_press:
+                    root.manager.transition.direction = "right"
+                    root.manager.current = 'menu'
 
             MDTextField:
                 multiline: True
@@ -102,33 +139,24 @@ ScreenManager:
 
         MDScreen:
 
+            MDBottomAppBar:
+                MDToolbar:
+                    elevation:10
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.navigation_draw()
+
             MDFloatingActionButton:
                 id: button
-                icon: "minus"
+                icon: "arrow-left"
                 pos: 10, 10
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'menu'
-
-            MDFloatingActionButton:
-                id: button
-                icon: "plus"
-                pos: 200, 10
-
-            MDLabel:
-                text: 'Hints for sleep improvement:'
-                halign: 'center'
-                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
-                font_size: 30
-
-            MDRoundFlatButton:
-                text: 'actual hint'
-                halign: 'center'
-                pos_hint: {'center_x': 0.5, 'center_y': 0.74}
-                font_size: 20
-                on_press: root.prove()
-                text: root.hint
-
+                on_press:
+                    root.manager.transition.direction = "right"
+                    root.manager.current = 'menu'
 
 
 
@@ -139,13 +167,23 @@ ScreenManager:
 
         MDScreen:
 
+
+            MDBottomAppBar:
+                MDToolbar:
+                    elevation:10
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.navigation_draw()
+
             MDFloatingActionButton:
                 id: button
-                icon: "minus"
+                icon: "arrow-left"
                 pos: 10, 10
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
-                on_press: root.manager.current = 'menu'
-
-
+                on_press:
+                    root.manager.transition.direction = "right"
+                    root.manager.current = 'menu'
 
