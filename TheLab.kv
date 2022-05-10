@@ -23,7 +23,7 @@ ScreenManager:
                     on_action_button:app.navigation_draw()
 
             MDCard:
-                radius:30
+                radius:50
                 size_hint_x: ".45"
                 size_hint_y: ".25"
                 pos_hint: {"center_x": .5, "center_y": .55}
@@ -89,6 +89,11 @@ ScreenManager:
                     type: 'bottom'
                     icon: 'plus'
                     icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["dots-vertical", lambda x: app.callback_1()],
+                        ["check-bold", lambda x: app.callback_2()],
+                        ["sleep", lambda x: app.callback_3()]]
+
                     on_action_button:app.navigation_draw()
 
             MDFloatingActionButton:
@@ -111,24 +116,8 @@ ScreenManager:
                 pos_hint: {'center_x': 0.19, 'center_y': 0.8}
 
 
-            MDTextField:
-                multiline: True
-                mode: "fill"
-                hint_text: "ЗАМЕТКА №2"
-                size_hint: 0.3, 0.3
-                radius: [20, 20, 20, 20]
-
-                pos_hint: {'center_x': 0.50, 'center_y': 0.8}
 
 
-            MDTextField:
-                multiline: True
-                mode: "fill"
-                hint_text: "ЗАМЕТКА №3"
-                size_hint: 0.3, 0.3
-                radius: [20, 20, 20, 20]
-
-                pos_hint: {'center_x': 0.81, 'center_y': 0.8}
 
 
 
@@ -146,6 +135,11 @@ ScreenManager:
                     type: 'bottom'
                     icon: 'plus'
                     icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["dots-vertical", lambda x: app.callback_1()],
+                        ["check-bold", lambda x: app.callback_2()],
+                        ["bookmark", lambda x: app.callback_3()]]
+
                     on_action_button:app.navigation_draw()
 
             MDFloatingActionButton:
@@ -157,6 +151,20 @@ ScreenManager:
                 on_press:
                     root.manager.transition.direction = "right"
                     root.manager.current = 'menu'
+
+            MDLabel:
+                text: 'Советы для улучшения сна:'
+                halign: 'center'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                font_size: 50
+
+            MDRoundFlatButton:
+                text: 'actual hint'
+                halign: 'center'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.74}
+                font_size: 25
+                on_press: root.prove()
+                text: root.hint
 
 
 
@@ -175,6 +183,11 @@ ScreenManager:
                     type: 'bottom'
                     icon: 'plus'
                     icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["dots-vertical", lambda x: app.callback_1()],
+                        ["sleep", lambda x: app.callback_2()],
+                        ["bookmark", lambda x: app.callback_3()]]
+
                     on_action_button:app.navigation_draw()
 
             MDFloatingActionButton:
@@ -186,4 +199,5 @@ ScreenManager:
                 on_press:
                     root.manager.transition.direction = "right"
                     root.manager.current = 'menu'
+
 
