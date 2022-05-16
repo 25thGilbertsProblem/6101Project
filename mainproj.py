@@ -1,9 +1,10 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.utils import get_color_from_hex
 
 #only for sleep hints:
-from sleep_hints import hints, links
+from Sasha_Brunch.sleep_hints import hints, links
 from random import randint
 import webbrowser
 
@@ -12,7 +13,7 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Orange"
+        self.theme_cls.primary_palette = "BlueGray"
 
 
 
@@ -22,7 +23,13 @@ class MenuScreen(Screen):
     pass
 
 class NoteScreen(Screen):
-    pass
+
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+    def set_screen_task(self):
+        MDApp.get_running_app().root.current = "task"
+    def set_screen_sleep(self):
+        MDApp.get_running_app().root.current = "sleep"
 
 ########
 # Sleep
@@ -37,13 +44,34 @@ def open_link():
 #########
 
 class SleepScreen(Screen):
+
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+    def set_screen_note(self):
+        MDApp.get_running_app().root.current = "note"
+    def set_screen_task(self):
+        MDApp.get_running_app().root.current = "task"
+
+
+#########
     hint = hints[i]
 
     def prove(instance):
         open_link()
 
 class TaskScreen(Screen):
-    pass
+
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+    def set_screen_task(self):
+        MDApp.get_running_app().root.current = "task"
+    def set_screen_sleep(self):
+        MDApp.get_running_app().root.current = "sleep"
+
+class OptionScreen(Screen):
+
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
@@ -56,3 +84,11 @@ class WindowManager(ScreenManager):
 
 
 MainApp().run()
+
+#Theme colors
+# ['Red', 'Pink', 'Purple', 'DeepPurple',
+#  'Indigo', 'Blue', 'LightBlue', 'Cyan',
+#  'Teal', 'Green','LightGreen', 'Lime',
+#  'Yellow', 'Amber', 'Orange', 'DeepOrange',
+#  'Brown', 'Gray', 'BlueGray']
+
