@@ -1,12 +1,16 @@
 ScreenManager:
     MenuScreen:
+        name: "menu"
     NoteScreen:
+        name: "note"
     SleepScreen:
+        name: "sleep"
     TaskScreen:
+        name: "task"
     OptionScreen:
+        name: "option"
 
 <MenuScreen>:
-    name: "menu"
 
     MDBoxLayout:
         orientation: 'vertical'
@@ -22,6 +26,8 @@ ScreenManager:
                     icon: 'plus'
                     icon_color: .7, .2, .1,
                     on_action_button:app.navigation_draw()
+
+
 
             MDCard:
                 radius:50
@@ -79,30 +85,41 @@ ScreenManager:
 
 
 <NoteScreen>:
-    name: "note"
-    MDBoxLayout:
-        orientation: 'vertical'
 
-        MDScreen:
+    MDScreen:
+        MDGridLayout:
+            id:note_id
+            cols:2
 
-            MDBottomAppBar:
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    left_action_items:
-                        [["arrow-left", lambda x: root.set_screen_menu()],
-                        ["check-bold", lambda x:  root.set_screen_task()],
-                        ["sleep", lambda x:  root.set_screen_sleep()]]
 
-                    on_action_button:app.navigation_draw()
+        MDBottomAppBar:
+            MDToolbar:
+                elevation: 0
+                mode: 'end'
+                type: 'bottom'
+                icon: 'plus'
+                icon_color: .7, .2, .1,
+                left_action_items:
+                    [["arrow-left", lambda x: root.set_screen_menu()],
+                    ["check-bold", lambda x: root.set_screen_task()],
+                    ["sleep", lambda x: root.set_screen_sleep()]]
+
+
+
+                on_action_button: root.add_test()
+
+
+
+
+
+
+
+
 
 
 
 <SleepScreen>:
-    name: "sleep"
+
     MDBoxLayout:
         orientation: 'vertical'
 
@@ -123,7 +140,7 @@ ScreenManager:
 
 
 
-                    on_action_button:app.navigation_draw()
+                    on_action_button:  app.show_time_picker()
 
 
 
@@ -144,7 +161,7 @@ ScreenManager:
 
 
 <TaskScreen>:
-    name: "task"
+
     MDBoxLayout:
         orientation: 'vertical'
 
@@ -166,7 +183,7 @@ ScreenManager:
                     on_action_button:app.navigation_draw()
 
 <OptionScreen>:
-    name: "option"
+
     MDBoxLayout:
         orientation: 'vertical'
 
@@ -185,7 +202,7 @@ ScreenManager:
 
                     on_action_button:app.navigation_draw()
 
-            MDFillRoundFlatIconButton:
+            MDRoundFlatButton:
                 icon: "sleep"
                 text: "NIGHT THEME"
                 width: dp(20)
@@ -263,4 +280,8 @@ ScreenManager:
                 on_press:
                     app.theme_cls.primary_palette = "Gray"
 
+
+  
+ 
+ 
 
