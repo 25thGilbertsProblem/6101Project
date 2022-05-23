@@ -9,6 +9,8 @@ ScreenManager:
         name: "task"
     OptionScreen:
         name: "option"
+    TestScreen:
+        name: "test"
 
 <MenuScreen>:
 
@@ -49,6 +51,7 @@ ScreenManager:
                     root.manager.transition.direction = "left"
                     root.manager.current = 'task'
 
+
             #Sleep
             MDFloatingActionButton:
 
@@ -82,6 +85,26 @@ ScreenManager:
                 on_press:
                     root.manager.transition.direction = "left"
                     root.manager.current = 'option'
+
+            #Test1
+            MDFloatingActionButton:
+
+                icon: "triangle"
+                pos_hint: {"center_x": .8, "center_y": .8}
+                theme_icon_color: "Custom"
+                md_bg_color: .5, .5, .5,
+                on_press:
+                    root.manager.transition.direction = "left"
+                    root.manager.current = 'test'
+
+            #Test2
+
+            MDFloatingActionButton:
+
+                id: test2
+                icon: "plus"
+                pos_hint: {"center_x": .35, "center_y": .35}
+                on_release: app.tap_target_start()
 
 
 <NoteScreen>:
@@ -210,6 +233,7 @@ ScreenManager:
                 size_hint_y: ".1"
                 pos_hint: {"center_x": .5, "center_y": .45}
                 on_press:
+
                     app.theme_cls.theme_style = "Light" if app.theme_cls.theme_style == "Dark" else 'Dark'
 
             MDCard:
@@ -221,67 +245,94 @@ ScreenManager:
             #ColorButtons
 
             #Orange
-            MDFloatingActionButton:
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .7, "center_y": .7}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
+                    self.grow()
                     app.theme_cls.primary_palette = "Orange"
 
             #BlueGray
-            MDFloatingActionButton:
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .5, "center_y": .7}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
+                    self.grow()
                     app.theme_cls.primary_palette = "BlueGray"
 
             #Brown
-            MDFloatingActionButton:
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .3, "center_y": .7}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
+                    self.grow()
                     app.theme_cls.primary_palette = "Brown"
 
             #Teal
-            MDFloatingActionButton:
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .3, "center_y": .6}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
+                    self.grow()
                     app.theme_cls.primary_palette = "Teal"
 
             #Amber
-            MDFloatingActionButton:
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .5, "center_y": .6}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
+                    self.grow()
                     app.theme_cls.primary_palette = "Amber"
 
-            #Gray
-            MDFloatingActionButton:
+            #Blue
+            MagicFAB:
 
                 icon: "circle"
                 pos_hint: {"center_x": .7, "center_y": .6}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
-                    app.theme_cls.primary_palette = "Gray"
+                    self.grow()
+                    app.theme_cls.primary_palette = "Blue"
 
 
-  
- 
- 
+
+<TestScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+
+
+        MDScreen:
+            ScrollView:
+                size_hint_y: 0.73
+    	        pos_hint: {'x': 0.2, 'y': 0.2}
+    	        do_scroll_x: False
+    	        do_scroll_y: True
+
+    	        MDFloatingActionButton:
+
+                    icon: "circle"
+                    pos_hint: {"center_x": .7, "center_y": .6}
+                    theme_icon_color: "Custom"
+                    md_bg_color: app.theme_cls.primary_color
+                    on_press:
+                        root.manager.transition.direction = "left"
+                        root.manager.current = 'menu'
+
 
