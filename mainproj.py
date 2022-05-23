@@ -1,10 +1,17 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.button import Button
+
+
+# widgets
 from kivy.uix.textinput import TextInput
+from kivy.uix.scrollview import ScrollView
+from kivymd.uix.taptargetview import MDTapTargetView
+
+# animation/colors
+from kivymd.uix.behaviors import MagicBehavior
+from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton
 from kivy.utils import get_color_from_hex
-from kivymd.uix.picker import MDTimePicker
 
 #only for sleep hints:
 from Sasha_Brunch.sleep_hints import hints, links
@@ -17,14 +24,16 @@ class MainApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
+        kv = Builder.load_file('sd1.kv')
 
-        def show_time_picker(self):
-            time_dialog = MDTimePicker()
-            time_dialog.open()
+        # self.tap_target_view = MDTapTargetView(
+        #     widget=kv.ids.test2,
+        #     title_text="This is an add button",
+        #     description_text="This is a description of the button",
+        #     widget_position="left_bottom",
+        # )
+        return kv
 
-
-
-        return Builder.load_file('sd1.kv')
 
 class MenuScreen(Screen):
     pass
@@ -63,11 +72,17 @@ class SleepScreen(Screen):
         MDApp.get_running_app().root.current = "task"
 
 
+
     #########
     hint = hints[i]
 
     def prove(instance):
         open_link()
+
+# for tests
+
+class TestScreen(Screen):
+    pass
 
 class TaskScreen(Screen):
 
@@ -78,19 +93,28 @@ class TaskScreen(Screen):
     def set_screen_sleep(self):
         MDApp.get_running_app().root.current = "sleep"
 
-class OptionScreen(Screen):
-
-    def set_screen_menu(self):
-        MDApp.get_running_app().root.current = "menu"
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(NoteScreen(name='note'))
 sm.add_widget(SleepScreen(name='sleep'))
 sm.add_widget(TaskScreen(name='task'))
+sm.add_widget(TestScreen(name='test'))
 
 class WindowManager(ScreenManager):
     pass
+
+# НАРАБОТКИ
+
+class MagicFAB(MagicBehavior, MDFloatingActionButton):
+    pass
+
+
+class OptionScreen(Screen):
+
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+
 
 MainApp().run()
 
@@ -102,26 +126,17 @@ MainApp().run()
 #  'Brown', 'Gray', 'BlueGray']
 
 
-# MDLabel:
-# text: "1 test"
-# halign: 'center'
-# MDLabel:
-# text: "2 test"
-# halign: 'center'
-# MDLabel:
-# text: "3 test"
-# halign: 'center'
+# <TestScreen>:
 #
-# MDBottomAppBar:
-# MDToolbar:
-# elevation: 0
-# mode: 'end'
-# type: 'bottom'
-# icon: 'plus'
-# icon_color: .7, .2, .1,
-# left_action_items:
-# [["arrow-left", lambda x: root.set_screen_menu()],
-#  ["check-bold", lambda x: root.set_screen_task()],
-#  ["sleep", lambda x: root.set_screen_sleep()]]
-#
-# on_action_button: root.add_test()
+#     ScrollView:
+#         do_scroll_x: False
+#         do_scroll_y: True
+#             Label:
+#                 size_hint_y:None
+#                 height: self.texture_size[1]
+#                 text_size: self.width, None
+#                 text: 'test'*1000
+#                 font_size: '30sp'
+
+# root.manager.transition.direction = "left"
+# root.manager.current = 'task'
