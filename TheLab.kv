@@ -20,17 +20,6 @@ ScreenManager:
 
         MDScreen:
 
-            MDBottomAppBar:
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    on_action_button: app.tt2_start()
-
-
-
             MDCard:
                 radius:180
                 elevation:0
@@ -104,16 +93,31 @@ ScreenManager:
                     root.manager.transition.direction = "left"
                     root.manager.current = 'test'
 
+
+
             #Help1
 
             MDFloatingActionButton:
 
-                id: help
+                id: help_1
                 elevation:0
                 icon: "help"
+                user_font_size: "30sp"
                 md_bg_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .3, "center_y": .35}
                 on_release: app.tt1_start()
+
+            #AppBar
+
+            MDBottomAppBar:
+                MDToolbar:
+                    id: help_2
+                    elevation:0
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.tt2_start()
 
 
 <NoteScreen>:
