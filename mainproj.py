@@ -7,8 +7,12 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.taptargetview import MDTapTargetView
+from kivymd.uix.list import TwoLineAvatarListItem
+from kivymd.uix.list import OneLineListItem
+
 
 # animation/colors
+from kivy.animation import Animation
 from kivymd.uix.behaviors import MagicBehavior
 from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton
 from kivy.utils import get_color_from_hex
@@ -24,16 +28,26 @@ class MainApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
+        self.theme_cls.primary_hue = "700"
         kv = Builder.load_file('sd1.kv')
+        self.tt1 = MDTapTargetView(
+            widget=kv.get_screen('menu').ids.help,
+            title_text="Это основное меню",
+            description_text="Здесь распологаются \n кружочки-виджеты",
+            widget_position="left_bottom",
+            title_text_size="20sp",
 
-        # self.tap_target_view = MDTapTargetView(
-        #     widget=kv.ids.test2,
-        #     title_text="This is an add button",
-        #     description_text="This is a description of the button",
-        #     widget_position="left_bottom",
-        # )
+        )
+
         return kv
 
+    def tt1_start(self):
+        if self.tt1.state == "close":
+            self.tt1.start()
+
+        else:
+            self.tt1.stop()
+    overlay_color = get_color_from_hex("#6042e4")
 
 class MenuScreen(Screen):
     pass
@@ -82,7 +96,43 @@ class SleepScreen(Screen):
 # for tests
 
 class TestScreen(Screen):
-    pass
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+
+    def on_enter(self):
+        for i in range(10):
+            self.manager.get_screen('test').ids.test_id.add_widget(MyItem())
+    def set_selection_mode(self, instance_selection_list, mode):
+        if mode:
+            md_bg_color = self.overlay_color
+            left_action_items = [
+                [
+                    "close",
+                    lambda x: self.root.ids.selection_list.unselected_all(),
+                ]
+            ]
+            right_action_items = [["trash-can"], ["dots-vertical"]]
+        else:
+            md_bg_color = (0, 0, 0, 1)
+            left_action_items = [["menu"]]
+            right_action_items = [["magnify"], ["dots-vertical"]]
+            self.manager.get_screen('test').ids.toolbar.title = "Inbox"
+
+        Animation(md_bg_color=md_bg_color, d=0.2).start(self.root.ids.toolbar)
+        self.manager.get_screen('test').ids.toolbar.left_action_items = left_action_items
+        self.manager.get_screen('test').ids.toolbar.right_action_items = right_action_items
+
+    def on_selected(self, instance_selection_list, instance_selection_item):
+        self.manager.get_screen('test').ids.toolbar.title = str(
+            len(instance_selection_list.get_selected_list_items())
+        )
+
+    def on_unselected(self, instance_selection_list, instance_selection_item):
+        if instance_selection_list.get_selected_list_items():
+            self.manager.get_screen('test').ids.toolbar.title = str(
+                len(instance_selection_list.get_selected_list_items())
+            )
+
 
 class TaskScreen(Screen):
 
@@ -109,11 +159,18 @@ class WindowManager(ScreenManager):
 class MagicFAB(MagicBehavior, MDFloatingActionButton):
     pass
 
+class MyItem(TwoLineAvatarListItem):
+    pass
 
 class OptionScreen(Screen):
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
+
+
+
+
+
 
 
 MainApp().run()
@@ -126,17 +183,10 @@ MainApp().run()
 #  'Brown', 'Gray', 'BlueGray']
 
 
-# <TestScreen>:
-#
-#     ScrollView:
-#         do_scroll_x: False
-#         do_scroll_y: True
-#             Label:
-#                 size_hint_y:None
-#                 height: self.texture_size[1]
-#                 text_size: self.width, None
-#                 text: 'test'*1000
-#                 font_size: '30sp'
-
 # root.manager.transition.direction = "left"
-# root.manager.current = 'task'
+
+# overlay_color: app.overlay_color[:-1] + [.2]
+#                 icon_bg_color: app.overlay_color
+#                 on_selected: app.on_selected(*args)
+#                 on_unselected: app.on_unselected(*args)
+#                 on_selected_mode: app.set_selection_mode(*args)
