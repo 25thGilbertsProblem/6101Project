@@ -1,0 +1,112 @@
+from kivy.lang import Builder
+from kivy.uix.button import Button
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivymd.app import MDApp
+
+from akivymd import  *
+from kivymd.uix.behaviors import TouchBehavior
+
+
+class Months_Screen(Screen):
+    pass
+
+class MyButton(Button, TouchBehavior):
+    pass
+class Days_of_January_Screen(Screen):
+    pass
+
+# sm = ScreenManager()
+# sm.add_widget(Months_Screen(name="month"))
+# sm.add_widget(Days_of_January_Screen(name="days_of_January")
+
+class WindowManager(ScreenManager):
+    pass
+KV = """
+ScreenManager:
+    Months_Screen:
+        name: "month"
+    Days_of_January_Screen:
+        name: "days_of_January"
+        
+<NavigationButton@Button_Item>
+    icon_color: app.theme_cls.text_color
+    text_color: app.theme_cls.text_color
+    button_bg_color: app.theme_cls.primary_color
+    mode: 'color_on_active'
+    badge_disabled: True
+
+
+<Months_Screen>:
+    
+    NavigationButton:
+        text: 'January'
+        icon: 'numeric-1-box-multiple-outline'
+        pos_hint: {"center_x": .3, "center_y": .8}
+        on_press:
+            
+            
+    
+    NavigationButton:
+        text: 'February'
+        icon: 'numeric-2-box-multiple-outline'
+        pos_hint: {"center_x": .5, "center_y": .8}
+    
+    NavigationButton:
+        text: 'March'
+        icon: 'numeric-3-box-multiple-outline'
+        pos_hint: {"center_x": .7, "center_y": .8}
+        
+    NavigationButton:
+        text: 'April'
+        icon: 'numeric-4-box-multiple-outline'
+        pos_hint: {"center_x": .3, "center_y": .6}
+    
+    NavigationButton:
+        text: 'May'
+        icon: 'numeric-5-box-multiple-outline'
+        pos_hint: {"center_x": .5, "center_y": .6}
+    
+    NavigationButton:
+        text: 'June'
+        icon: 'numeric-6-box-multiple-outline'
+        pos_hint: {"center_x": .7, "center_y": .6}
+    
+    NavigationButton:
+        text: 'July'
+        icon: 'numeric-7-box-multiple-outline'
+        pos_hint: {"center_x": .3, "center_y": .4}
+    
+    NavigationButton:
+        text: 'August'
+        icon: 'numeric-8-box-multiple-outline'
+        pos_hint: {"center_x": .5, "center_y": .4}
+    
+    NavigationButton:
+        text: 'September'
+        icon: 'numeric-9-box-multiple-outline'
+        pos_hint: {"center_x": .7, "center_y": .4}
+    
+    NavigationButton:
+        text: 'October'
+        icon: 'numeric-10-box-multiple-outline'
+        pos_hint: {"center_x": .3, "center_y": .2}
+    
+    NavigationButton:
+        text: 'November'
+        icon: 'circle'
+        pos_hint: {"center_x": .5, "center_y": .2}
+    
+    NavigationButton:
+        text: 'December'
+        icon: 'circle'
+        pos_hint: {"center_x": .7, "center_y": .2}
+
+"""
+
+
+class Test(MDApp):
+    def build(self):
+        return Builder.load_string(KV)
+
+
+Test().run()
