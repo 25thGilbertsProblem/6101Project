@@ -29,7 +29,7 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
         self.theme_cls.primary_hue = "700"
-        kv = Builder.load_file('sd1.kv')
+        kv = Builder.load_file('TheLab.kv')
         self.tt1 = MDTapTargetView(
             widget=kv.get_screen('menu').ids.help,
             title_text="Это основное меню",
