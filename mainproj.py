@@ -29,12 +29,28 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
         self.theme_cls.primary_hue = "700"
-        kv = Builder.load_file('TheLab.kv')
+        kv = Builder.load_file('sd1.kv')
+
+        #Описание ?-кружочков
         self.tt1 = MDTapTargetView(
-            widget=kv.get_screen('menu').ids.help,
+            widget=kv.get_screen('menu').ids.help_1,
             title_text="Это основное меню",
             description_text="Здесь распологаются \n кружочки-виджеты",
             widget_position="left_bottom",
+            title_text_size="20sp",
+
+        )
+        self.tt2 = MDTapTargetView(
+            widget=kv.get_screen('menu').ids.help_2,
+            title_text="Это кнопка \n добавления",
+            description_text="Добавьте что-то новое \n в кружочек)",
+            description_text_color=[0, 0, 0, 1],
+            title_text_color=[0, 0, 0, 1],
+            outer_circle_color=(1, 1, 1,),
+            widget_position="center",
+            target_circle_color=(1, 1, 1),
+            target_radius = 100,
+            title_position="top",
             title_text_size="20sp",
 
         )
@@ -47,6 +63,13 @@ class MainApp(MDApp):
 
         else:
             self.tt1.stop()
+
+    def tt2_start(self):
+        if self.tt2.state == "close":
+            self.tt2.start()
+
+        else:
+            self.tt2.stop()
     overlay_color = get_color_from_hex("#6042e4")
 
 class MenuScreen(Screen):
@@ -181,7 +204,6 @@ MainApp().run()
 #  'Teal', 'Green','LightGreen', 'Lime',
 #  'Yellow', 'Amber', 'Orange', 'DeepOrange',
 #  'Brown', 'Gray', 'BlueGray']
-
 
 # root.manager.transition.direction = "left"
 
