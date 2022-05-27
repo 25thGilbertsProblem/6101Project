@@ -1,0 +1,352 @@
+from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivymd.app import MDApp
+from akivymd import  *
+
+class Days_of_January_Screen(Screen):
+    pass
+
+class WindowManager(ScreenManager):
+    pass
+
+KV = """
+ScreenManager:
+    Days_of_January_Screen:
+        name: "days_of_January"
+        
+<NavigationButton@Button_Item>
+    icon_color: app.theme_cls.text_color
+    text_color: app.theme_cls.text_color
+    button_bg_color: app.theme_cls.primary_color
+    mode: 'color_on_active'
+    badge_disabled: True
+        
+<Days_of_January_Screen>:
+    NavigationButton:
+
+        icon: "circle"
+        text: "January 1"
+        pos_hint: {"center_x": .125, "center_y": .9}
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .25, "center_y": .9}
+        text: "January 2"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .375, "center_y": .9}
+        text: "January 3"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .5, "center_y": .9}
+        text: "January 4"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .625, "center_y": .9}
+        text: "January 5"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .75, "center_y": .9}
+        text: "January 6"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .875, "center_y": .9}
+        text: "January 7"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .125, "center_y": .7}
+        text: "January 8"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .25, "center_y": .7}
+        text: "January 9"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .375, "center_y": .7}
+        text: "January 10"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .5, "center_y": .7}
+        text: "January 11"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .625, "center_y": .7}
+        text: "January 12"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .75, "center_y": .7}
+        text: "January 13"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .875, "center_y": .7}
+        text: "January 14"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .125, "center_y": .5}
+        text: "January 15"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .25, "center_y": .5}
+        text: "January 16"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .375, "center_y": .5}
+        text: "January 17"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        text: "January 18"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .625, "center_y": .5}
+        text: "January 19"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .75, "center_y": .5}
+        text: "January 20"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .875, "center_y": .5}
+        text: "January 21"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .125, "center_y": .3}
+        text: "January 22"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .25, "center_y": .3}
+        text: "January 23"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .375, "center_y": .3}
+        text: "January 24"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .5, "center_y": .3}
+        text: "January 25"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .625, "center_y": .3}
+        text: "January 26"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .75, "center_y": .3}
+        text: "January 27"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .875, "center_y": .3}
+        text: "January 28"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .125, "center_y": .1}
+        text: "January 29"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .25, "center_y": .1}
+        text: "January 30"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .375, "center_y": .1}
+        text: "January 31"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .5, "center_y": .1}
+        text: "January 1"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .625, "center_y": .1}
+        text: "January 1"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .75, "center_y": .1}
+        text: "January 1"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+
+    NavigationButton:
+
+        icon: "circle"
+        pos_hint: {"center_x": .875, "center_y": .1}
+        text: "January 1"
+        theme_icon_color: "Custom"
+        md_bg_color: app.theme_cls.primary_color
+        on_press:
+            root.manager.transition.direction = "left"
+            root.manager.current = 'days_of_January'
+        
+        
+        
+       
+        
+"""
+
+class Test(MDApp):
+    def build(self):
+        return Builder.load_string(KV)
+
+
+Test().run()
