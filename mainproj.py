@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 # widgets
 from kivy.uix.textinput import TextInput
+from kivymd.uix.card import MDCard
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.taptargetview import MDTapTargetView
 from kivymd.uix.list import TwoLineAvatarListItem
@@ -55,6 +56,29 @@ class MainApp(MDApp):
 
         )
 
+        self.tt3 = MDTapTargetView(
+            widget=kv.get_screen('sleep').ids.help_3,
+            title_text="        Это кружочек про сон",
+            description_text="      Здесь вы получите полезные советы\n      и сможете следить за свои сном",
+            widget_position="center",
+            outer_radius= 450 ,
+            target_radius=80,
+            title_position="left_top",
+            title_text_size="20sp",
+
+        )
+
+        self.tt4 = MDTapTargetView(
+            widget=kv.get_screen('option').ids.help_4,
+            title_text="          Это кружочек настроек",
+            description_text="      Здесь вы можете поменять цвет кружочков\n               и включить темную тему",
+            widget_position="center",
+            outer_radius=450,
+            target_radius=80,
+            title_position="left_top",
+            title_text_size="20sp",
+        )
+
         return kv
 
     def tt1_start(self):
@@ -70,6 +94,21 @@ class MainApp(MDApp):
 
         else:
             self.tt2.stop()
+
+    def tt3_start(self):
+        if self.tt3.state == "close":
+            self.tt3.start()
+
+        else:
+            self.tt3.stop()
+
+    def tt4_start(self):
+        if self.tt4.state == "close":
+            self.tt4.start()
+
+        else:
+            self.tt4.stop()
+
     overlay_color = get_color_from_hex("#6042e4")
 
 class MenuScreen(Screen):
@@ -110,8 +149,11 @@ class SleepScreen(Screen):
 
 
 
+
+
     #########
     hint = hints[i]
+    pic = 'images/' + str(i) + '.jpeg'
 
     def prove(instance):
         open_link()
@@ -161,8 +203,8 @@ class TaskScreen(Screen):
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
-    def set_screen_task(self):
-        MDApp.get_running_app().root.current = "task"
+    def set_screen_note(self):
+        MDApp.get_running_app().root.current = "note"
     def set_screen_sleep(self):
         MDApp.get_running_app().root.current = "sleep"
 
@@ -178,6 +220,7 @@ class WindowManager(ScreenManager):
     pass
 
 # НАРАБОТКИ
+
 
 class MagicFAB(MagicBehavior, MDFloatingActionButton):
     pass
@@ -205,7 +248,6 @@ MainApp().run()
 #  'Yellow', 'Amber', 'Orange', 'DeepOrange',
 #  'Brown', 'Gray', 'BlueGray']
 
-# root.manager.transition.direction = "left"
 
 # overlay_color: app.overlay_color[:-1] + [.2]
 #                 icon_bg_color: app.overlay_color
