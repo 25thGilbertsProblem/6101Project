@@ -161,10 +161,64 @@ ScreenManager:
 
         MDScreen:
 
+
+            MDCard:
+                radius: [20,]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".065"
+                pos_hint: {"center_x": .5, "center_y": .945}
+
+
+            MDLabel:
+                text: 'Советы для улучшения сна:'
+                halign: 'center'
+                theme_text_color: "Primary"
+                bold: True
+                pos_hint: {'center_x': 0.5, 'center_y': 0.945}
+                font_size: 30
+
+
+            MDCard:
+                radius: [20]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".55"
+
+                focus_behavior: True
+                ripple_behavior: True
+                pos_hint: {"center_x": .5, "center_y": .63}
+                on_press: root.prove()
+
+                FitImage:
+                    radius: [15,]
+                    source: root.pic
+                    size_hint_x: "1"
+                    size_hint_y: ".6"
+
+
+            MDCard:
+                radius: [20,]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".2"
+                pos_hint: {"center_x": .5, "center_y": .28}
+
+                MDLabel:
+                    text: root.hint
+                    theme_text_color: "Primary"
+                    font_size: 26
+                    size_hint_x: ".8"
+                    size_hint_y: ".8"
+                    bold: True
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+
             MDBottomAppBar:
                 MDToolbar:
+                    id: help_3
                     elevation:0
-                    user_font_size: "35sp"
                     mode: 'end'
                     type: 'bottom'
                     icon: 'plus'
@@ -177,23 +231,7 @@ ScreenManager:
 
 
 
-                    on_action_button:  app.show_time_picker()
-
-
-
-            MDLabel:
-                text: 'Советы для улучшения сна:'
-                halign: 'center'
-                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
-                font_size: 50
-
-            MDRoundFlatButton:
-                text: 'actual hint'
-                halign: 'center'
-                pos_hint: {'center_x': 0.5, 'center_y': 0.74}
-                font_size: 30
-                on_press: root.prove()
-                text: root.hint
+                    on_action_button: app.tt3_start()
 
 
 
@@ -227,17 +265,6 @@ ScreenManager:
         MDScreen:
 
 
-            MDBottomAppBar:
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    left_action_items:
-                        [["arrow-left", lambda x: root.set_screen_menu()]]
-
-                    on_action_button:app.navigation_draw()
 
             MDRoundFlatButton:
                 icon: "sleep"
@@ -339,13 +366,25 @@ ScreenManager:
 
             MDFloatingActionButton:
 
-                id: help
+                id: help_4
                 elevation:0
                 icon: "help"
+                user_font_size: "30sp"
                 md_bg_color: app.theme_cls.primary_color
-                pos_hint: {"center_x": .3, "center_y": .35}
-                on_release: app.tap_target_start()
+                pos_hint: {"center_x": .5, "center_y": .3}
+                on_release: app.tt4_start()
 
+            MDBottomAppBar:
+                MDToolbar:
+                    elevation:0
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["arrow-left", lambda x: root.set_screen_menu()]]
+
+                    on_action_button:app.navigation_draw()
 
 
 <TestScreen>:
@@ -376,6 +415,4 @@ ScreenManager:
                 on_selected: app.on_selected(*args)
                 on_unselected: app.on_unselected(*args)
                 on_selected_mode: app.set_selection_mode(*args)
-
-
 
