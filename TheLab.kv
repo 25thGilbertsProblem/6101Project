@@ -5,12 +5,15 @@ ScreenManager:
         name: "note"
     SleepScreen:
         name: "sleep"
+    TimeScreen:
+        name: 'time'
     TaskScreen:
         name: "task"
     OptionScreen:
         name: "option"
     TestScreen:
         name: "test"
+
 
 <MenuScreen>:
 
@@ -143,6 +146,7 @@ ScreenManager:
 
 <SleepScreen>:
 
+
     MDBoxLayout:
         orientation: 'vertical'
 
@@ -174,52 +178,58 @@ ScreenManager:
                 pos_hint: {'center_x': 0.5, 'center_y': 0.94}
                 font_size: 30
 
-            MD3Card:
-                radius: [30,]
-                orientation: "vertical"
-                size_hint: .6, None
-                height: box_top.height + box_bottom.height
-                focus_behavior: True
-                ripple_behavior: True
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_press: root.prove()
+            MDBottomAppBar:
 
-
-            MDBoxLayout:
-                id: box_top
-                spacing: "20dp"
-                adaptive_height: True
-                pos_hint: {'center_x': .6, 'center_y': .58}
-
-                FitImage:
-                    radius: [15,]
-                    source: root.pic
-                    size_hint: 1, .3
-                    height: text_box.height
-
-                MDBoxLayout:
-                    id: text_box
-                    orientation: "vertical"
-                    adaptive_height: True
-                    spacing: "10dp"
-                    padding: 0, "10dp", "10dp", "10dp"
-
-                    MDLabel:
-                        text: root.hint
-                        theme_text_color: "Primary"
-                        font_size: 18
-                        bold: True
-                        adaptive_height: True
-
-
-                    MDBoxLayout:
-                        id: box_bottom
+                MDToolbar:
+                    elevation:0
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["arrow-left", lambda x: root.set_screen_menu()],
+                        ["check-bold", lambda x: root.set_screen_task()],
+                        ["square", lambda x: root.set_screen_note()],
+                        ['arrow-right', lambda x: root.set_screen_time()]]
 
 
 
 
+                    on_action_button:  app.show_time_picker()
 
 
+
+<TimeScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDCard:
+            id: box
+
+        MDScreen:
+            MDRaisedButton:
+                text: "Open time picker"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                on_release: root.show_time_picker()
+
+            MDLabel:
+                id: time_label
+                text: 'text'
+                pos_hint: {'center_x': .95, 'center_y': .4}
+
+
+            MDBottomAppBar:
+
+                MDToolbar:
+                    elevation:0
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus'
+                    icon_color: .7, .2, .1,
+                    left_action_items:
+                        [["arrow-left", lambda x: root.set_screen_sleep()],
+                        ["check-bold", lambda x: root.set_screen_task()],
+                        ["square", lambda x: root.set_screen_note()]]
 
 <TaskScreen>:
 
