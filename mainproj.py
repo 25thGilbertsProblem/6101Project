@@ -1,9 +1,12 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.core.window import Window
+from kivymd_extensions.akivymd import *
 
 # widgets
 from kivy.uix.textinput import TextInput
+from kivymd.uix.textfield import MDTextFieldRect
 from kivymd.uix.card import MDCard
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.taptargetview import MDTapTargetView
@@ -12,13 +15,13 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.picker import MDDatePicker
+from kivymd.uix.picker import MDDatePicker,MDThemePicker
 from datetime import datetime
 
 # animation/colors
 from kivy.animation import Animation
 from kivymd.uix.behaviors import MagicBehavior
-from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton
+from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton, MDFillRoundFlatButton
 from kivy.utils import get_color_from_hex
 
 # only for sleep hints:
@@ -26,6 +29,7 @@ from Sasha_Brunch.sleep_hints import hints, links
 from random import randint
 import webbrowser
 
+# Window.size = 360, 640
 
 class MainApp(MDApp):
 
@@ -37,7 +41,7 @@ class MainApp(MDApp):
 
         # Описание ?-кружочков
         self.tt1 = MDTapTargetView(
-            widget=kv.get_screen('menu').idsF.help_1,
+            widget=kv.get_screen('menu').ids.help_1,
             title_text="Это основное меню",
             description_text="Здесь распологаются \n кружочки-виджеты",
             widget_position="left_bottom",
@@ -114,6 +118,8 @@ class MainApp(MDApp):
 
     overlay_color = get_color_from_hex("#6042e4")
 
+    n = 10
+
 
 class MenuScreen(Screen):
     pass
@@ -131,7 +137,7 @@ class NoteScreen(Screen):
         MDApp.get_running_app().root.current = "sleep"
 
     def add_test(self):
-        text = TextInput(text='')
+        text = MDTextFieldRect(text='')
         self.ids.note_id.add_widget(text)
 
 
@@ -139,7 +145,6 @@ class NoteScreen(Screen):
 # Sleep
 
 i = randint(0, 8)
-
 
 def open_link():
     global i
@@ -174,9 +179,9 @@ class TestScreen(Screen):
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
 
-    def on_enter(self):
-        for i in range(10):
-            self.manager.get_screen('test').ids.test_id.add_widget()
+    # def on_enter(self):
+    #     for i in range(10):
+    #         self.manager.get_screen('test').ids.test_id.add_widget()
 
     def set_selection_mode(self, instance_selection_list, mode):
         if mode:
@@ -227,7 +232,7 @@ class TaskScreen(Screen):
     def show_task_dialog(self):
         if not self.task_list_dialog:
             dialog_context = DialogContent()
-            self.task_list_dialog = MDDialog(
+            self.task_list_dialog = MDDialog(radius=[40, 40, 40, 40],
                 title="Создайте напоминание",
                 type="custom",
                 content_cls=dialog_context,
@@ -261,7 +266,7 @@ class DialogContent(MDBoxLayout):
         self.parent_widget = widget
 
     def show_date_picker(self):
-        date_dialog = MDDatePicker()
+        date_dialog = MDDatePicker(radius=[40, 40, 40, 40],selector_color=get_color_from_hex("#e93f39"))
         date_dialog.bind(on_save=self.on_save)
         date_dialog.open()
 
@@ -279,15 +284,21 @@ class DialogContent(MDBoxLayout):
 
 
 
-class MagicFAB(MagicBehavior, MDFloatingActionButton):
+class MagicFAB(MagicBehavior, MDFillRoundFlatButton):
     pass
 
+class MagicFAB(MagicBehavior, MDFillRoundFlatButton):
+    pass
 
 
 class OptionScreen(Screen):
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
+
+    def show_theme_picker(self):
+        theme_dialog = MDThemePicker(radius=[40, 40, 40, 40])
+        theme_dialog.open()
 
 class ListItemWithCheckbox(TwoLineAvatarIconListItem):
 
