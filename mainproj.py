@@ -21,6 +21,17 @@ from sleep_hints import hints, links
 from random import randint
 import webbrowser
 
+#for sleep_time:
+from kivymd.uix.picker import MDTimePicker
+import matplotlib.pyplot as plt
+from kivy.storage.dictstore import DictStore
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+
+x = [1, 2, 3, 4, 5]
+y = [5, 12, 6, 3, 3]
+plt.plot(x, y)
+plt.xlabel('sdf')
+plt.ylabel('sdfl')
 
 class MainApp(MDApp):
 
@@ -73,6 +84,8 @@ class SleepScreen(Screen):
         MDApp.get_running_app().root.current = "note"
     def set_screen_task(self):
         MDApp.get_running_app().root.current = "task"
+    def set_screen_time(self):
+        MDApp.get_running_app().root.current = 'time'
 
 
 
@@ -82,6 +95,34 @@ class SleepScreen(Screen):
 
     def prove(instance):
         open_link()
+
+
+class TimeScreen(Screen):
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+
+    def set_screen_note(self):
+        MDApp.get_running_app().root.current = "note"
+
+    def set_screen_task(self):
+        MDApp.get_running_app().root.current = "task"
+
+    store = DictStore('time_data')
+    def get_time(self, instance, time):
+        self.store.put('today', sleep_time=time)
+        return time
+
+
+    def show_time_picker(self):
+        time_dialog = MDTimePicker()
+        time_dialog.bind(time=self.get_time)
+        time_dialog.open()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        box = self.ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
 # for tests
 
@@ -124,6 +165,13 @@ class OptionScreen(Screen):
 class MD3Card(MDCard, RoundedRectangularElevationBehavior):
     text = StringProperty()
 
+
+
+# fig, ax = plt.subplots()
+# x = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# y = time_data
+# ax.bar(x, y)
+# plt.savefig('sleep_graph.jpg')
 
 MainApp().run()
 
