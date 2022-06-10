@@ -30,3 +30,10 @@
         # Увеличивает число на счётчике уведомлений
         menu_screen = self.parent_widget.manager.get_screen('menu')
         menu_screen.n = menu_screen.n + 1
+
+
+class NoteScreen(Screen):
+    quickly = StringProperty('СДЕЛАТЬ')
+    not_quickly = StringProperty('ЗАПЛАНИРОВАТЬ')
+    awesome = StringProperty('ДЕЛЕГИРОВАТЬ')
+    not_awesome = StringProperty('УДАЛИТЬ')
