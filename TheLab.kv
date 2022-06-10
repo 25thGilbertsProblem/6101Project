@@ -5,15 +5,12 @@ ScreenManager:
         name: "note"
     SleepScreen:
         name: "sleep"
-    TimeScreen:
-        name: 'time'
     TaskScreen:
         name: "task"
     OptionScreen:
         name: "option"
     TestScreen:
         name: "test"
-
 
 <MenuScreen>:
 
@@ -23,22 +20,29 @@ ScreenManager:
 
         MDScreen:
 
-            MDBottomAppBar:
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    on_action_button:app.navigation_draw()
+            MDCard:
+                radius:180
+                elevation:0
+                size_hint_x: ".55"
+                size_hint_y: ".3"
+                pos_hint: {"center_x": .5, "center_y": .6}
 
+            MDCard:
+                radius: 200
+                elevation:0
+                size_hint_x: ".34"
+                size_hint_y: ".18"
+                pos_hint: {"center_x": .3, "center_y": .35}
 
 
             MDCard:
-                radius:50
-                size_hint_x: ".45"
-                size_hint_y: ".25"
-                pos_hint: {"center_x": .5, "center_y": .55}
+                radius: 200
+                elevation:0
+                size_hint_x: ".26"
+                size_hint_y: ".14"
+                pos_hint: {"center_x": .72, "center_y": .38}
+
+
 
 
 
@@ -47,19 +51,21 @@ ScreenManager:
             MDFloatingActionButton:
 
                 icon: "check-bold"
-                pos_hint: {"center_x": .4, "center_y": .6}
+                pos_hint: {"center_x": .4, "center_y": .65}
                 theme_icon_color: "Custom"
+                user_font_size: "35sp"
                 md_bg_color: app.theme_cls.primary_color
+                badge_text: "+12"
                 on_press:
                     root.manager.transition.direction = "left"
                     root.manager.current = 'task'
-
 
             #Sleep
             MDFloatingActionButton:
 
                 icon: "sleep"
-                pos_hint: {"center_x": .4, "center_y": .5}
+                user_font_size: "35sp"
+                pos_hint: {"center_x": .4, "center_y": .55}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
@@ -70,7 +76,8 @@ ScreenManager:
             MDFloatingActionButton:
 
                 icon: "square"
-                pos_hint: {"center_x": .6, "center_y": .6}
+                user_font_size: "35sp"
+                pos_hint: {"center_x": .6, "center_y": .65}
                 theme_icon_color: "Custom"
                 md_bg_color: app.theme_cls.primary_color
                 on_press:
@@ -82,7 +89,8 @@ ScreenManager:
             MDFloatingActionButton:
 
                 icon: "cog"
-                pos_hint: {"center_x": .6, "center_y": .5}
+                user_font_size: "35sp"
+                pos_hint: {"center_x": .6, "center_y": .55}
                 theme_icon_color: "Custom"
                 md_bg_color: .5, .5, .5,
                 on_press:
@@ -93,29 +101,155 @@ ScreenManager:
             MDFloatingActionButton:
 
                 icon: "triangle"
-                pos_hint: {"center_x": .8, "center_y": .8}
+                user_font_size: "30sp"
+                pos_hint: {"center_x": .72, "center_y": .38}
                 theme_icon_color: "Custom"
                 md_bg_color: .5, .5, .5,
                 on_press:
                     root.manager.transition.direction = "left"
                     root.manager.current = 'test'
 
-            #Test2
+
+
+            #Help1
 
             MDFloatingActionButton:
 
-                id: test2
-                icon: "plus"
-                pos_hint: {"center_x": .35, "center_y": .35}
-                on_release: app.tap_target_start()
+                id: help_1
+                elevation:0
+                icon: "help"
+                user_font_size: "30sp"
+                md_bg_color: app.theme_cls.primary_color
+                pos_hint: {"center_x": .3, "center_y": .35}
+                on_release: app.tt1_start()
+            MDCard:
+                radius: 60
+                elevation:0
+                size_hint_x: ".95"
+                size_hint_y: ".1"
+                pos_hint: {"center_x": .5, "center_y": .92}
+
+            AKBottomNavigation2:
+                size_hint_y: ".0"
+                bg_color: app.theme_cls.bg_dark
+                pos_hint: { "center_y": .92}
+                radius: 0
+
+                Button_Item:
+                    id: btw
+                    text: "Записи"
+                    icon: "check-bold"
+                    icon_color: 1, 1, 1, 1
+                    text_color: 1, 1, 1, 1
+                    button_bg_color: app.theme_cls.primary_color
+                    badge_text: str(root.n)
+                    badgeitem_color: .7, .2, .1, 1
+                    badge_bg_color: app.theme_cls.bg_dark
+
+                Button_Item:
+                    text: "Сон"
+                    badge_text: ""
+                    icon: "sleep"
+                    icon_color: 1, 1, 1, 1
+                    text_color: 1, 1, 1, 1
+                    button_bg_color: app.theme_cls.primary_color
+                    badgeitem_color: .7, .2, .1, 1
+                    badge_bg_color: app.theme_cls.bg_dark
+
+                Button_Item:
+                    text: "Стикеры"
+                    icon: "square"
+                    icon_color: 1, 1, 1, 1
+                    text_color: 1, 1, 1, 1
+                    button_bg_color: app.theme_cls.primary_color
+                    badge_disabled: True
+
+                Button_Item:
+                    text: "Виджет"
+                    badge_text: ""
+                    icon: "triangle"
+                    icon_color: 1, 1, 1, 1
+                    text_color: 1, 1, 1, 1
+                    button_bg_color: app.theme_cls.primary_color
+                    badge_disabled: True
+
+
+            #AppBar
+
+            MDBottomAppBar:
+                MDToolbar:
+                    id: help_2
+                    elevation:0
+                    mode: 'end'
+                    type: 'bottom'
+                    icon: 'plus-thick'
+                    icon_color: .7, .2, .1,
+                    on_action_button:app.tt2_start()
 
 
 <NoteScreen>:
 
     MDScreen:
-        MDGridLayout:
-            id:note_id
-            cols:2
+
+
+        MDFloatLayout:
+            size_hint_x: "1.22"
+            size_hint_y: "1.1"
+
+            MDLabel:
+                text: 'НЕСРОЧНО'
+
+                theme_text_color: "Primary"
+                bold: True
+                pos_hint: {'center_x': 1, 'center_y': 0.89}
+                font_size: 30
+            MDLabel:
+                text: 'СРОЧНО'
+
+                theme_text_color: "Primary"
+                bold: True
+                pos_hint: {'center_x': 0.67, 'center_y': 0.89}
+                font_size: 30
+
+            MDLabel:
+                text: 'В'
+
+                theme_text_color: "Primary"
+                bold: True
+#                halign: "center"
+                pos_hint: {'center_x': 0.52, 'center_y': 0.8}
+                font_size: 30
+
+            MDLabel:
+                text: 'НВ'
+
+                theme_text_color: "Primary"
+                bold: True
+#                halign: "center"
+                pos_hint: {'center_x': 0.52, 'center_y': 0.45}
+                font_size: 30
+
+
+        MDFloatLayout:
+            size_hint_x: ".85"
+            size_hint_y: ".8"
+
+
+
+
+            MDGridLayout:
+
+                id:note_id
+                cols:2
+                spacing: "5dp"
+                padding: "5dp"
+                pos_hint: {"center_x": .59, "center_y": .705}
+                Ez1TextInput:
+                Ez2TextInput:
+                Ez3TextInput:
+                Ez4TextInput:
+
+
 
 
         MDBottomAppBar:
@@ -123,7 +257,7 @@ ScreenManager:
                 elevation: 0
                 mode: 'end'
                 type: 'bottom'
-                icon: 'plus'
+                icon: 'plus-thick'
                 icon_color: .7, .2, .1,
                 left_action_items:
                     [["arrow-left", lambda x: root.set_screen_menu()],
@@ -146,112 +280,118 @@ ScreenManager:
 
 <SleepScreen>:
 
-
     MDBoxLayout:
         orientation: 'vertical'
 
         MDScreen:
 
 
-            MDBottomAppBar:
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    left_action_items:
-                        [["arrow-left", lambda x: root.set_screen_menu()],
-                        ["check-bold", lambda x: root.set_screen_task()],
-                        ["square", lambda x: root.set_screen_note()]]
-
-
-
-
-                    on_action_button:  app.show_time_picker()
-
+            MDCard:
+                radius: [20,]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".065"
+                pos_hint: {"center_x": .5, "center_y": .945}
 
 
             MDLabel:
                 text: 'Советы для улучшения сна:'
                 halign: 'center'
-                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                theme_text_color: "Primary"
+                bold: True
+                pos_hint: {'center_x': 0.5, 'center_y': 0.945}
                 font_size: 30
 
-            MDBottomAppBar:
 
+            MDCard:
+                radius: [20]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".55"
+
+                focus_behavior: True
+                ripple_behavior: True
+                pos_hint: {"center_x": .5, "center_y": .63}
+                on_press: root.prove()
+
+                FitImage:
+                    radius: [15,]
+                    source: root.pic
+                    size_hint_x: "1"
+                    size_hint_y: ".6"
+
+
+            MDCard:
+                radius: [20,]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".2"
+                pos_hint: {"center_x": .5, "center_y": .28}
+
+                MDLabel:
+                    text: root.hint
+                    theme_text_color: "Primary"
+                    font_size: 26
+                    size_hint_x: ".8"
+                    size_hint_y: ".8"
+                    bold: True
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+
+            MDBottomAppBar:
                 MDToolbar:
+                    id: help_3
                     elevation:0
                     mode: 'end'
                     type: 'bottom'
-                    icon: 'plus'
+                    icon: 'plus-thick'
                     icon_color: .7, .2, .1,
                     left_action_items:
                         [["arrow-left", lambda x: root.set_screen_menu()],
                         ["check-bold", lambda x: root.set_screen_task()],
-                        ["square", lambda x: root.set_screen_note()],
-                        ['arrow-right', lambda x: root.set_screen_time()]]
-
-
-
-
-                    on_action_button:  app.show_time_picker()
-
-
-
-<TimeScreen>:
-    MDBoxLayout:
-        orientation: 'vertical'
-
-        MDCard:
-            id: box
-
-        MDScreen:
-            MDRaisedButton:
-                text: "Open time picker"
-                pos_hint: {'center_x': .5, 'center_y': .5}
-                on_release: root.show_time_picker()
-
-            MDLabel:
-                id: time_label
-                text: 'text'
-                pos_hint: {'center_x': .95, 'center_y': .4}
-
-
-            MDBottomAppBar:
-
-                MDToolbar:
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus'
-                    icon_color: .7, .2, .1,
-                    left_action_items:
-                        [["arrow-left", lambda x: root.set_screen_sleep()],
-                        ["check-bold", lambda x: root.set_screen_task()],
                         ["square", lambda x: root.set_screen_note()]]
+
+
+
+
+                    on_action_button: app.tt3_start()
+
+
 
 <TaskScreen>:
 
-    MDBoxLayout:
-        orientation: 'vertical'
-
+    MDFloatLayout:
         MDScreen:
 
+            MDLabel:
+                id: task_label
+                halign: 'center'
+                markup: True
+                text: "[size=40][b]Заметки[/b][/size]"
+                pos_hint: {'y': .45}
+
+            ScrollView:
+                pos_hint: {'center_y': .5, 'center_x': .5}
+                size_hint: .9, .8
+
+                MDList:
+                    id: container
 
             MDBottomAppBar:
                 MDToolbar:
                     elevation:0
                     mode: 'end'
                     type: 'bottom'
-                    icon: 'plus'
+                    icon: 'plus-thick'
                     icon_color: .7, .2, .1,
                     left_action_items:
                         [["arrow-left", lambda x: root.set_screen_menu()],
                         ["sleep", lambda x:  root.set_screen_sleep()],
-                        ["square", lambda x: lambda x:  root.set_screen_note()]]
+                        ["square", lambda x: root.set_screen_note()]]
 
-                    on_action_button:app.navigation_draw()
+                    on_action_button: root.show_task_dialog()
+
 
 <OptionScreen>:
 
@@ -260,127 +400,152 @@ ScreenManager:
 
         MDScreen:
 
+            MDFillRoundFlatButton:
+                text: "[b]НОЧНОЙ РЕЖИМ[/b]"
+                icon: "sleep"
+                width: dp(20)
+                size_hint_x: ".5"
+                size_hint_y: ".2"
+                pos_hint: {"center_x": .5, "center_y": .72}
+                on_press:
+
+                    app.theme_cls.theme_style = "Light" if app.theme_cls.theme_style == "Dark" else 'Dark'
+
+
+
+            MDFillRoundFlatButton:
+                text: "[b]ОФОРМЛЕНИЕ[/b]"
+                icon: "sleep"
+                width: dp(20)
+                size_hint_x: ".5"
+                size_hint_y: ".2"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press:
+                    root.show_theme_picker()
+
+#                    app.theme_cls.theme_style = "Light" if app.theme_cls.theme_style == "Dark" else 'Dark'
+
+
+            #Help2
+
+            MDFloatingActionButton:
+
+                id: help_4
+                elevation:0
+                icon: "help"
+                user_font_size: "30sp"
+                md_bg_color: app.theme_cls.primary_color
+                pos_hint: {"center_x": .5, "center_y": .3}
+                on_release: app.tt4_start()
 
             MDBottomAppBar:
                 MDToolbar:
                     elevation:0
                     mode: 'end'
                     type: 'bottom'
-                    icon: 'plus'
+                    icon: 'plus-thick'
                     icon_color: .7, .2, .1,
                     left_action_items:
                         [["arrow-left", lambda x: root.set_screen_menu()]]
 
                     on_action_button:app.navigation_draw()
 
-            MDRoundFlatButton:
-                icon: "sleep"
-                text: "NIGHT THEME"
-                width: dp(20)
-                size_hint_x: ".5"
-                size_hint_y: ".1"
-                pos_hint: {"center_x": .5, "center_y": .45}
-                on_press:
-
-                    app.theme_cls.theme_style = "Light" if app.theme_cls.theme_style == "Dark" else 'Dark'
-
-            MDCard:
-                radius:50
-                size_hint_x: ".65"
-                size_hint_y: ".25"
-                pos_hint: {"center_x": .5, "center_y": .65}
-
-            #ColorButtons
-
-            #Orange
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .7, "center_y": .7}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "Orange"
-
-            #BlueGray
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .5, "center_y": .7}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "BlueGray"
-
-            #Brown
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .3, "center_y": .7}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "Brown"
-
-            #Teal
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .3, "center_y": .6}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "Teal"
-
-            #Amber
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .5, "center_y": .6}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "Amber"
-
-            #Blue
-            MagicFAB:
-
-                icon: "circle"
-                pos_hint: {"center_x": .7, "center_y": .6}
-                theme_icon_color: "Custom"
-                md_bg_color: app.theme_cls.primary_color
-                on_press:
-                    self.grow()
-                    app.theme_cls.primary_palette = "Blue"
-
-
 
 <TestScreen>:
+
+
     MDBoxLayout:
-        orientation: 'vertical'
+        orientation: "vertical"
+
+        MDToolbar:
+            id: toolbar
+            title: "Записи"
+            left_action_items:  [["arrow-left", lambda x: root.set_screen_menu()]]
+            right_action_items: [["magnify"], ["dots-vertical"]]
+
+        MDBoxLayout:
+            padding: "24dp", "8dp", 0, "8dp"
+            adaptive_size: True
 
 
+        ScrollView:
 
-        MDScreen:
-            ScrollView:
-                size_hint_y: 0.73
-    	        pos_hint: {'x': 0.2, 'y': 0.2}
-    	        do_scroll_x: False
-    	        do_scroll_y: True
+            MDSelectionList:
+                id: test_id
+                spacing: "12dp"
+                overlay_color: app.overlay_color[:-1] + [.2]
+                icon_bg_color: app.overlay_color
 
-    	        MDFloatingActionButton:
+                on_selected: app.on_selected(*args)
+                on_unselected: app.on_unselected(*args)
+                on_selected_mode: app.set_selection_mode(*args)
 
-                    icon: "circle"
-                    pos_hint: {"center_x": .7, "center_y": .6}
-                    theme_icon_color: "Custom"
-                    md_bg_color: app.theme_cls.primary_color
-                    on_press:
-                        root.manager.transition.direction = "left"
-                        root.manager.current = 'menu'
+<DialogContent>:
 
+    id: dlg
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint: 1, None
+    height: "130dp"
 
+    GridLayout:
+        rows: 1
+
+        MDTextField:
+            id: task_text
+            hint_text: "Напишите что-нибудь..."
+            pos_hint: {"center_y": .4}
+            max_text_length: 50
+            on_text_validate: (root.add_task(task_text, date_text.text), root.close_dialog())
+
+        MDIconButton:
+            icon: 'calendar'
+            on_release: root.show_date_picker()
+            padding: '10dp'
+
+    MDLabel:
+        spacing: '10dp'
+        id: date_text
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        MDRaisedButton:
+            text: "СОХРАНИТЬ"
+            on_release: (root.add_task(task_text, date_text.text), root.close_dialog())
+        MDFlatButton:
+            text: 'ОТМЕНИТЬ'
+            on_release: root.close_dialog()
+
+<ListItemWithCheckbox>:
+    id: the_list_item
+    markup: True
+
+    LeftCheckbox:
+        id: check
+        on_release:
+            root.mark(check, the_list_item)
+
+    IconRightWidget:
+        icon: 'trash-can-outline'
+        theme_text_color: "Custom"
+        text_color: 1, 0, 0, 1
+        on_release:
+            root.delete_item(the_list_item)
+
+<Ez1TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.7, .2, 0, 1)
+    text: 'СДЕЛАТЬ'
+    bold: True
+
+<Ez2TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.9, .5, 0, 1)
+    text: "ЗАПЛАНИРОВАТЬ"
+
+<Ez3TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.3, .45, .1, 1)
+    text: "ДЕЛЕГИРОВАТЬ"
+
+<Ez4TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.6, .6, 0, 1)
+    text: "УДАЛИТЬ"
