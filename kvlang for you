@@ -1,0 +1,28 @@
+<NoteScreen>:
+Ez1TextInput:
+                    text: root.quickly
+                Ez2TextInput:
+                    text:root.not_quickly
+                Ez3TextInput:
+                    text: root.awesome
+                Ez4TextInput:
+                    text: root.not_awesome
+										
+										
+									
+
+
+<Ez1TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.7, .2, 0, 1)
+    bold: True
+
+<Ez2TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.9, .5, 0, 1)
+
+
+<Ez3TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.3, .45, .1, 1)
+
+
+<Ez4TextInput@TextInput>:
+    background_color: (1,1,1,1) if self.focus else (.6, .6, 0, 1)
