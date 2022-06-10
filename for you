@@ -1,0 +1,32 @@
+ def add_task(self, task, task_date):
+        print(task.text, task_date)
+        # ХЭШТЕГИ
+        note_screen = self.parent_widget.manager.get_screen('note')
+        if '#СВ' in task.text or '#ВС' in task.text:
+            if note_screen.quickly == 'СДЕЛАТЬ':
+                note_screen.quickly = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+            else:
+                note_screen.quickly += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+        if '#НВ' in task.text or '#ВН' in task.text:
+            if note_screen.not_quickly == 'ЗАПЛАНИРОВАТЬ':
+                note_screen.not_quickly = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+            else:
+                note_screen.not_quickly += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+        if '#СН' in task.text or '#НС' in task.text:
+            if note_screen.awesome == 'ДЕЛЕГИРОВАТЬ':
+                note_screen.awesome = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+            else:
+                note_screen.awesome += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+        if '#НН' in task.text:
+            if note_screen.not_awesome == 'УДАЛИТЬ':
+                note_screen.not_awesome = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+            else:
+                note_screen.not_awesome += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find('#')+3:-1] +'\n'
+
+        self.parent_widget.ids['container'].add_widget(
+            ListItemWithCheckbox(parent_widget=self.parent_widget, text='[b]' + task.text + '[/b]',
+                                 secondary_text=task_date))
+        task.text = ''
+        # Увеличивает число на счётчике уведомлений
+        menu_screen = self.parent_widget.manager.get_screen('menu')
+        menu_screen.n = menu_screen.n + 1
