@@ -1,68 +1,150 @@
+from kivy.properties import NumericProperty, StringProperty
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-
+from kivy.core.window import Window
+from kivymd_extensions.akivymd import *
 
 # widgets
 from kivy.uix.textinput import TextInput
-from kivymd.uix.behaviors import RoundedRectangularElevationBehavior
-from kivy.properties import StringProperty
+from kivymd.uix.textfield import MDTextFieldRect
 from kivymd.uix.card import MDCard
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.taptargetview import MDTapTargetView
+from kivymd.uix.list import TwoLineAvatarIconListItem, ILeftBodyTouch
+from kivymd.uix.selectioncontrol import MDCheckbox
+from kivymd.uix.list import OneLineListItem
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.picker import MDDatePicker, MDThemePicker
+from datetime import datetime
 
 # animation/colors
+from kivy.animation import Animation
 from kivymd.uix.behaviors import MagicBehavior
-from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton
+from kivymd.uix.button import MDFloatingActionButton, MDRoundFlatButton, MDFillRoundFlatButton
 from kivy.utils import get_color_from_hex
 
-#only for sleep hints:
+# only for sleep hints:
 from sleep_hints import hints, links
 from random import randint
 import webbrowser
 
-#for sleep_time:
-from kivymd.uix.picker import MDTimePicker
-import matplotlib.pyplot as plt
-from kivy.storage.dictstore import DictStore
-from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+Window.size = 360, 640
 
-x = [1, 2, 3, 4, 5]
-y = [5, 12, 6, 3, 3]
-plt.plot(x, y)
-plt.xlabel('sdf')
-plt.ylabel('sdfl')
 
 class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
+        self.theme_cls.primary_hue = "700"
         kv = Builder.load_file('TheLab.kv')
 
-        # self.tap_target_view = MDTapTargetView(
-        #     widget=kv.ids.test2,
-        #     title_text="This is an add button",
-        #     description_text="This is a description of the button",
-        #     widget_position="left_bottom",
-        # )
+        # Описание ?-кружочков
+        self.tt1 = MDTapTargetView(
+            widget=kv.get_screen('menu').ids.help_1,
+            title_text="Это основное меню",
+            description_text="Здесь распологаются \n кружочки-виджеты",
+            widget_position="left_bottom",
+            title_text_size="20sp",
+
+        )
+        self.tt2 = MDTapTargetView(
+            widget=kv.get_screen('menu').ids.help_2,
+            title_text="Это кнопка \n добавления",
+            description_text="Добавьте что-то новое \n в кружочек)",
+            description_text_color=[0, 0, 0, 1],
+            title_text_color=[0, 0, 0, 1],
+            outer_circle_color=(1, 1, 1,),
+            widget_position="center",
+            target_circle_color=(1, 1, 1),
+            target_radius=100,
+            title_position="top",
+            title_text_size="20sp",
+
+        )
+
+        self.tt3 = MDTapTargetView(
+            widget=kv.get_screen('sleep').ids.help_3,
+            title_text="        Это кружочек про сон",
+            description_text="      Здесь вы получите полезные советы\n      и сможете следить за свои сном",
+            widget_position="center",
+            outer_radius=450,
+            target_radius=80,
+            title_position="left_top",
+            title_text_size="20sp",
+
+        )
+
+        self.tt4 = MDTapTargetView(
+            widget=kv.get_screen('option').ids.help_4,
+            title_text="          Это кружочек настроек",
+            description_text="      Здесь вы можете поменять цвет кружочков\n               и включить темную тему",
+            widget_position="center",
+            outer_radius=450,
+            target_radius=80,
+            title_position="left_top",
+            title_text_size="20sp",
+        )
+
         return kv
+
+    def tt1_start(self):
+        if self.tt1.state == "close":
+            self.tt1.start()
+
+        else:
+            self.tt1.stop()
+
+    def tt2_start(self):
+        if self.tt2.state == "close":
+            self.tt2.start()
+
+        else:
+            self.tt2.stop()
+
+    def tt3_start(self):
+        if self.tt3.state == "close":
+            self.tt3.start()
+
+        else:
+            self.tt3.stop()
+
+    def tt4_start(self):
+        if self.tt4.state == "close":
+            self.tt4.start()
+
+        else:
+            self.tt4.stop()
+
+    overlay_color = get_color_from_hex("#6042e4")
 
 
 class MenuScreen(Screen):
+    n = NumericProperty(0)
     pass
 
+
 class NoteScreen(Screen):
+    quickly = StringProperty('СДЕЛАТЬ')
+    not_quickly = StringProperty('ЗАПЛАНИРОВАТЬ')
+    awesome = StringProperty('ДЕЛЕГИРОВАТЬ')
+    not_awesome = StringProperty('УДАЛИТЬ')
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
+
     def set_screen_task(self):
         MDApp.get_running_app().root.current = "task"
+
     def set_screen_sleep(self):
         MDApp.get_running_app().root.current = "sleep"
+
     def add_test(self):
-        text = TextInput(text = '')
+        text = MDTextFieldRect(text='')
         self.ids.note_id.add_widget(text)
+
 
 ########
 # Sleep
@@ -74,69 +156,96 @@ def open_link():
     global i
     webbrowser.open(links[i])
     return i
+
+
 #########
 
 class SleepScreen(Screen):
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
+
     def set_screen_note(self):
         MDApp.get_running_app().root.current = "note"
+
     def set_screen_task(self):
         MDApp.get_running_app().root.current = "task"
-    def set_screen_time(self):
-        MDApp.get_running_app().root.current = 'time'
-
-
 
     #########
     hint = hints[i]
-    pic = 'images/' + str(i) + '.jpg'
+    pic = 'images/' + str(i) + '.jpeg'
 
     def prove(instance):
         open_link()
 
 
-class TimeScreen(Screen):
+# for tests
+
+class TestScreen(Screen):
+    def set_screen_menu(self):
+        MDApp.get_running_app().root.current = "menu"
+
+    # def on_enter(self):
+    #     for i in range(10):
+    #         self.manager.get_screen('test').ids.test_id.add_widget()
+
+    def set_selection_mode(self, instance_selection_list, mode):
+        if mode:
+            md_bg_color = self.overlay_color
+            left_action_items = [
+                [
+                    "close",
+                    lambda x: self.root.ids.selection_list.unselected_all(),
+                ]
+            ]
+            right_action_items = [["trash-can"], ["dots-vertical"]]
+        else:
+            md_bg_color = (0, 0, 0, 1)
+            left_action_items = [["menu"]]
+            right_action_items = [["magnify"], ["dots-vertical"]]
+            self.manager.get_screen('test').ids.toolbar.title = "Inbox"
+
+        Animation(md_bg_color=md_bg_color, d=0.2).start(self.root.ids.toolbar)
+        self.manager.get_screen('test').ids.toolbar.left_action_items = left_action_items
+        self.manager.get_screen('test').ids.toolbar.right_action_items = right_action_items
+
+    def on_selected(self, instance_selection_list, instance_selection_item):
+        self.manager.get_screen('test').ids.toolbar.title = str(
+            len(instance_selection_list.get_selected_list_items())
+        )
+
+    def on_unselected(self, instance_selection_list, instance_selection_item):
+        if instance_selection_list.get_selected_list_items():
+            self.manager.get_screen('test').ids.toolbar.title = str(
+                len(instance_selection_list.get_selected_list_items())
+            )
+
+
+#######
+class TaskScreen(Screen):
+
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
 
     def set_screen_note(self):
         MDApp.get_running_app().root.current = "note"
 
-    def set_screen_task(self):
-        MDApp.get_running_app().root.current = "task"
-
-    store = DictStore('time_data')
-    def get_time(self, instance, time):
-        self.store.put('today', sleep_time=time)
-        return time
-
-
-    def show_time_picker(self):
-        time_dialog = MDTimePicker()
-        time_dialog.bind(time=self.get_time)
-        time_dialog.open()
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        box = self.ids.box
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-
-# for tests
-
-class TestScreen(Screen):
-    pass
-
-class TaskScreen(Screen):
-
-    def set_screen_menu(self):
-        MDApp.get_running_app().root.current = "menu"
-    def set_screen_task(self):
-        MDApp.get_running_app().root.current = "task"
     def set_screen_sleep(self):
         MDApp.get_running_app().root.current = "sleep"
+
+    task_list_dialog = None
+
+    def show_task_dialog(self):
+        if not self.task_list_dialog:
+            dialog_context = DialogContent()
+            self.task_list_dialog = MDDialog(radius=[40, 40, 40, 40],
+                                             title="Создайте напоминание",
+                                             type="custom",
+                                             content_cls=dialog_context,
+                                             )
+            dialog_context.set_parent_widget(self)
+
+        self.task_list_dialog.open()
 
 
 sm = ScreenManager()
@@ -146,12 +255,47 @@ sm.add_widget(SleepScreen(name='sleep'))
 sm.add_widget(TaskScreen(name='task'))
 sm.add_widget(TestScreen(name='test'))
 
+
 class WindowManager(ScreenManager):
     pass
 
+
 # НАРАБОТКИ
 
-class MagicFAB(MagicBehavior, MDFloatingActionButton):
+class DialogContent(MDBoxLayout):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.ids.date_text.text = str(datetime.now().strftime('%A %d %B %Y'))
+
+    def set_parent_widget(self, widget):
+        self.parent_widget = widget
+
+    def show_date_picker(self):
+        date_dialog = MDDatePicker(radius=[40, 40, 40, 40], selector_color=get_color_from_hex("#e93f39"))
+        date_dialog.bind(on_save=self.on_save)
+        date_dialog.open()
+
+    def on_save(self, instance, value, date_range):
+        date = value.strftime('%A %d %B %Y')
+        self.ids.date_text.text = str(date)
+
+    def add_task(self, task, task_date):
+        print(task.text, task_date)
+        self.parent_widget.ids['container'].add_widget(
+            ListItemWithCheckbox(parent_widget=self.parent_widget, text='[b]' + task.text + '[/b]',
+                                 secondary_text=task_date))
+        task.text = ''
+        # Увеличивает число на счётчике уведомлений
+        menu_screen = self.parent_widget.manager.get_screen('menu')
+        menu_screen.n = menu_screen.n + 1
+        # if '#' in task.text:
+
+    def close_dialog(self, *args):
+        self.parent_widget.task_list_dialog.dismiss()
+
+
+class MagicFAB(MagicBehavior, MDFillRoundFlatButton):
     pass
 
 
@@ -160,22 +304,40 @@ class OptionScreen(Screen):
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
 
-
-#НАРАБОТКИ ПО КАРТОЧКАМ ДЛЯ СНА
-class MD3Card(MDCard, RoundedRectangularElevationBehavior):
-    text = StringProperty()
-
+    def show_theme_picker(self):
+        theme_dialog = MDThemePicker(radius=[40, 40, 40, 40])
+        theme_dialog.open()
 
 
-# fig, ax = plt.subplots()
-# x = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-# y = time_data
-# ax.bar(x, y)
-# plt.savefig('sleep_graph.jpg')
+class ListItemWithCheckbox(TwoLineAvatarIconListItem):
+
+    def __init__(self, parent_widget, pk=None, **kwargs):
+        super().__init__(**kwargs)
+        self.pk = pk
+        self.parent_widget = parent_widget
+
+    def mark(self, check, the_list_item):
+        if check.active == True:
+            the_list_item.text = '[s]' + the_list_item.text + '[/s]'
+        else:
+
+            pass
+
+    def delete_item(self, the_list_item):
+        '''Delete the task'''
+        self.parent.remove_widget(the_list_item)
+        # Уменьшает число на счетчике уведомлений
+        menu_screen = self.parent_widget.manager.get_screen('menu')
+        menu_screen.n = menu_screen.n - 1
+
+
+class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
+    '''Custom left container'''
+
 
 MainApp().run()
 
-#Theme colors
+# Theme colors
 # ['Red', 'Pink', 'Purple', 'DeepPurple',
 #  'Indigo', 'Blue', 'LightBlue', 'Cyan',
 #  'Teal', 'Green','LightGreen', 'Lime',
@@ -183,17 +345,11 @@ MainApp().run()
 #  'Brown', 'Gray', 'BlueGray']
 
 
-# <TestScreen>:
-#
-#     ScrollView:
-#         do_scroll_x: False
-#         do_scroll_y: True
-#             Label:
-#                 size_hint_y:None
-#                 height: self.texture_size[1]
-#                 text_size: self.width, None
-#                 text: 'test'*1000
-#                 font_size: '30sp'
-
 # root.manager.transition.direction = "left"
 # root.manager.current = 'task'
+
+# overlay_color: app.overlay_color[:-1] + [.2]
+#                 icon_bg_color: app.overlay_color
+#                 on_selected: app.on_selected(*args)
+#                 on_unselected: app.on_unselected(*args)
+#                 on_selected_mode: app.set_selection_mode(*args)
