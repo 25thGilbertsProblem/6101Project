@@ -127,16 +127,15 @@ ScreenManager:
                 elevation:0
                 size_hint_x: ".95"
                 size_hint_y: ".1"
-                pos_hint: {"center_x": .5, "center_y": .92}
+                pos_hint: {"center_x": .5, "center_y": .085}
 
             AKBottomNavigation2:
                 size_hint_y: ".0"
                 bg_color: app.theme_cls.bg_dark
-                pos_hint: { "center_y": .92}
+                pos_hint: { "center_y": .085}
                 radius: 0
 
                 Button_Item:
-                    id: btw
                     text: "Записи"
                     icon: "check-bold"
                     icon_color: 1, 1, 1, 1
@@ -174,80 +173,152 @@ ScreenManager:
                     badge_disabled: True
 
 
-            #AppBar
 
-            MDBottomAppBar:
-                MDToolbar:
-                    id: help_2
-                    elevation:0
-                    mode: 'end'
-                    type: 'bottom'
-                    icon: 'plus-thick'
-                    icon_color: .7, .2, .1,
-                    on_action_button:app.tt2_start()
+            MDFloatingActionButton:
+
+                id: help_2
+                elevation:0
+                icon: "plus-thick"
+                icon_color: .7, .2, .1,
+                pos_hint: {"center_x": .85, "center_y": .24}
+                theme_icon_color: "Custom"
+                md_bg_color: .7, .2, .1,
+
+                on_press: app.tt2_start()
+
+
+
+
 
 
 <NoteScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDScreen:
 
-    MDScreen:
+            MDCard:
+                radius: [20,]
+                orientation: "vertical"
+                size_hint_x: ".8"
+                size_hint_y: ".045"
+                pos_hint: {"center_x": .5, "center_y": .945}
 
-
-        MDFloatLayout:
-            size_hint_x: "1.22"
-            size_hint_y: "1.1"
 
             MDLabel:
-                text: 'НЕСРОЧНО'
-
+                text: 'Матрица дел'
+                halign: 'center'
                 theme_text_color: "Primary"
                 bold: True
-                pos_hint: {'center_x': 1, 'center_y': 0.89}
-                font_size: 30
-            MDLabel:
-                text: 'СРОЧНО'
-
-                theme_text_color: "Primary"
-                bold: True
-                pos_hint: {'center_x': 0.67, 'center_y': 0.89}
-                font_size: 30
-
-            MDLabel:
-                text: 'В'
-
-                theme_text_color: "Primary"
-                bold: True
-#                halign: "center"
-                pos_hint: {'center_x': 0.52, 'center_y': 0.8}
-                font_size: 30
-
-            MDLabel:
-                text: 'НВ'
-
-                theme_text_color: "Primary"
-                bold: True
-#                halign: "center"
-                pos_hint: {'center_x': 0.52, 'center_y': 0.45}
-                font_size: 30
+                pos_hint: {'center_x': 0.5, 'center_y': 0.945}
+                font_size: self.width/15
 
 
-        MDFloatLayout:
-            size_hint_x: ".85"
-            size_hint_y: ".8"
+            MDCard:
+                radius: 0
+                elevation:0
+                size_hint_x: ".44"
+                size_hint_y: ".38"
+                pos_hint: {"center_x": .27, "center_y": .72}
+                md_bg_color: 1, 0, 0, 0.1
+
+            MDCard:
+                radius: 0
+                elevation:0
+                size_hint_x: ".44"
+                size_hint_y: ".38"
+                pos_hint: {"center_x": .73, "center_y": .72}
+                md_bg_color: 0.9, 0.5, 0, 0.1
+
+            MDCard:
+                radius: 0
+                elevation:0
+                size_hint_x: ".44"
+                size_hint_y: ".38"
+                pos_hint: {"center_x": .27, "center_y": .31}
+                md_bg_color: 0.6, 0.6, 0, 0.1
+
+            MDCard:
+                radius: 0
+                elevation:0
+                size_hint_x: ".44"
+                size_hint_y: ".38"
+                pos_hint: {"center_x": .73, "center_y": .31}
+                md_bg_color: 0.2, 0.6, 0, 0.1
 
 
 
 
-            MDGridLayout:
+            MDTextField:
+                id: must_have
+                text: root.quickly
+                normal_color: app.theme_cls.accent_color
+                size_hint_x: ".36"
+                size_hint_y: ".4"
+                pos_hint: {"center_x": .27, "center_y": .73}
 
-                id:note_id
-                cols:2
-                spacing: "5dp"
-                padding: "5dp"
-                pos_hint: {"center_x": .59, "center_y": .705}
-                Ez1TextInput:
-                Ez2TextInput:
-                Ez3TextInput:
-                Ez4TextInput:
+                hint_text: "СВ"
+                multiline: True
+                mode: "rectangle"
+                color_mode: 'custom'
+                line_color_focus: 1, 0, 0, 1
+#                0.7, 0.2, 0, 1
+
+
+
+            MDTextField:
+                text: root.not_quickly
+                normal_color: app.theme_cls.accent_color
+                size_hint_x: ".36"
+                size_hint_y: ".4"
+                pos_hint: {"center_x": .73, "center_y": .73}
+
+                hint_text:"НВ"
+                multiline: True
+                mode: "rectangle"
+                color_mode: 'custom'
+                line_color_focus: 0.9, 0.5, 0, 1
+
+
+
+            MDTextField:
+                text: root.awesome
+                normal_color: app.theme_cls.accent_color
+                size_hint_x: ".36"
+                size_hint_y: ".4"
+                pos_hint: {"center_x": .27, "center_y": .32}
+
+                hint_text:"СН"
+                multiline: True
+                mode: "rectangle"
+                color_mode: 'custom'
+                line_color_focus: 0.6, 0.6, 0, 1
+
+
+            MDTextField:
+                text: root.not_awesome
+                normal_color: app.theme_cls.accent_color
+                size_hint_x: ".36"
+                size_hint_y: ".4"
+                pos_hint: {"center_x": .73, "center_y": .32}
+
+                hint_text:"НН"
+                multiline: True
+                mode: "rectangle"
+                color_mode: 'custom'
+                line_color_focus: 0.2, 0.6, 0, 1
+
+
+
+
+
+#                Ez1TextInput:
+#                    text: root.quickly
+#                Ez2TextInput:
+#                    text:root.not_quickly
+#                Ez3TextInput:
+#                    text: root.awesome
+#                Ez4TextInput:
+#                    text: root.not_awesome
 
 
 
@@ -266,7 +337,8 @@ ScreenManager:
 
 
 
-                on_action_button: root.add_test()
+                on_action_button:
+#                root.add_test()
 
 
 
@@ -285,58 +357,66 @@ ScreenManager:
 
         MDScreen:
 
-
-            MDCard:
-                radius: [20,]
-                orientation: "vertical"
-                size_hint_x: ".8"
-                size_hint_y: ".065"
-                pos_hint: {"center_x": .5, "center_y": .945}
-
-
-            MDLabel:
-                text: 'Советы для улучшения сна:'
-                halign: 'center'
-                theme_text_color: "Primary"
-                bold: True
-                pos_hint: {'center_x': 0.5, 'center_y': 0.945}
-                font_size: 30
-
-
-            MDCard:
-                radius: [20]
-                orientation: "vertical"
-                size_hint_x: ".8"
-                size_hint_y: ".55"
-
-                focus_behavior: True
-                ripple_behavior: True
-                pos_hint: {"center_x": .5, "center_y": .63}
-                on_press: root.prove()
-
-                FitImage:
-                    radius: [15,]
-                    source: root.pic
-                    size_hint_x: "1"
-                    size_hint_y: ".6"
-
-
-            MDCard:
-                radius: [20,]
-                orientation: "vertical"
-                size_hint_x: ".8"
-                size_hint_y: ".2"
-                pos_hint: {"center_x": .5, "center_y": .28}
-
-                MDLabel:
-                    text: root.hint
-                    theme_text_color: "Primary"
-                    font_size: 26
+            Carousel:
+                direction: 'right'
+                MDCard:
+                    radius: [20]
+                    orientation: "vertical"
                     size_hint_x: ".8"
-                    size_hint_y: ".8"
-                    bold: True
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint_y: "0.85"
+                    pos_hint: {"center_x": .5, "center_y": 0.55}
 
+
+                    MDLabel:
+                        text: 'Советы для улучшения сна:'
+                        halign: 'center'
+                        valign: 'top'
+                        theme_text_color: "Primary"
+                        bold: True
+                        pos_hint: {'center_x': 0.5, 'center_y': 1}
+                        font_size: self.width/18
+
+
+                    MDCard:
+                        radius: [20]
+                        orientation: "vertical"
+                        size_hint_x: ".8"
+                        size_hint_y: ".55"
+
+                        focus_behavior: True
+                        ripple_behavior: True
+                        pos_hint: {"center_x": .5, "center_y": .63}
+                        on_press: root.prove()
+
+                        FitImage:
+                            radius: [15,]
+                            source: root.pic
+                            size_hint_x: "1"
+                            size_hint_y: ".6"
+
+
+                    MDCard:
+                        radius: [20,]
+                        orientation: "vertical"
+                        size_hint_x: ".8"
+                        size_hint_y: ".2"
+                        pos_hint: {"center_x": .5, "center_y": .28}
+
+                        MDLabel:
+                            text: root.hint
+                            theme_text_color: "Primary"
+                            font_size: self.width/18
+                            size_hint_x: ".8"
+                            size_hint_y: ".8"
+                            bold: True
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                MDCard:
+                    radius: [20]
+                    orientation: "vertical"
+                    size_hint_x: ".8"
+                    size_hint_y: "0.85"
+                    pos_hint: {"center_x": .5, "center_y": 0.55}
 
 
             MDBottomAppBar:
@@ -391,6 +471,7 @@ ScreenManager:
                         ["square", lambda x: root.set_screen_note()]]
 
                     on_action_button: root.show_task_dialog()
+
 
 
 <OptionScreen>:
@@ -535,17 +616,15 @@ ScreenManager:
 
 <Ez1TextInput@TextInput>:
     background_color: (1,1,1,1) if self.focus else (.7, .2, 0, 1)
-    text: 'СДЕЛАТЬ'
-    bold: True
+
 
 <Ez2TextInput@TextInput>:
     background_color: (1,1,1,1) if self.focus else (.9, .5, 0, 1)
-    text: "ЗАПЛАНИРОВАТЬ"
+
 
 <Ez3TextInput@TextInput>:
     background_color: (1,1,1,1) if self.focus else (.3, .45, .1, 1)
-    text: "ДЕЛЕГИРОВАТЬ"
+
 
 <Ez4TextInput@TextInput>:
     background_color: (1,1,1,1) if self.focus else (.6, .6, 0, 1)
-    text: "УДАЛИТЬ"
