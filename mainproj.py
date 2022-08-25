@@ -1,13 +1,13 @@
-from kivy.properties import NumericProperty, StringProperty
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from kivymd_extensions.akivymd import *
+from kivy.properties import NumericProperty, StringProperty
 
 # widgets
 from kivy.uix.textinput import TextInput
-from kivymd.uix.textfield import MDTextFieldRect
+from kivymd.uix.textfield import MDTextFieldRect,MDTextField
 from kivymd.uix.card import MDCard
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.taptargetview import MDTapTargetView
@@ -16,7 +16,7 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.picker import MDDatePicker, MDThemePicker
+from kivymd.uix.picker import MDDatePicker,MDThemePicker
 from datetime import datetime
 
 # animation/colors
@@ -30,16 +30,29 @@ from sleep_hints import hints, links
 from random import randint
 import webbrowser
 
+# for Database
+from database import Database
+from kivymd.uix.picker import MDDatePicker
+from kivy.utils import platform
+db = Database()
+
 Window.size = 360, 640
 
 
+if platform =='android':
+    from android.permissions import request_permission, Permission
+    request_permission([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+
 class MainApp(MDApp):
+
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
         self.theme_cls.primary_hue = "700"
+        # self.icon = 'icon-brain_87981.ico'
         kv = Builder.load_file('TheLab.kv')
+
 
         # Описание ?-кружочков
         self.tt1 = MDTapTargetView(
@@ -49,6 +62,7 @@ class MainApp(MDApp):
             widget_position="left_bottom",
             title_text_size="20sp",
 
+
         )
         self.tt2 = MDTapTargetView(
             widget=kv.get_screen('menu').ids.help_2,
@@ -57,9 +71,9 @@ class MainApp(MDApp):
             description_text_color=[0, 0, 0, 1],
             title_text_color=[0, 0, 0, 1],
             outer_circle_color=(1, 1, 1,),
-            widget_position="center",
             target_circle_color=(1, 1, 1),
             target_radius=100,
+            widget_position = "right_bottom",
             title_position="top",
             title_text_size="20sp",
 
@@ -120,6 +134,8 @@ class MainApp(MDApp):
 
     overlay_color = get_color_from_hex("#6042e4")
 
+    n = 10
+
 
 class MenuScreen(Screen):
     n = NumericProperty(0)
@@ -127,10 +143,6 @@ class MenuScreen(Screen):
 
 
 class NoteScreen(Screen):
-    quickly = StringProperty('СДЕЛАТЬ')
-    not_quickly = StringProperty('ЗАПЛАНИРОВАТЬ')
-    awesome = StringProperty('ДЕЛЕГИРОВАТЬ')
-    not_awesome = StringProperty('УДАЛИТЬ')
 
     def set_screen_menu(self):
         MDApp.get_running_app().root.current = "menu"
@@ -145,12 +157,15 @@ class NoteScreen(Screen):
         text = MDTextFieldRect(text='')
         self.ids.note_id.add_widget(text)
 
+    quickly = StringProperty('СДЕЛАТЬ')
+    not_quickly = StringProperty('ЗАПЛАНИРОВАТЬ')
+    awesome = StringProperty('ДЕЛЕГИРОВАТЬ')
+    not_awesome = StringProperty('УДАЛИТЬ')
 
 ########
 # Sleep
 
 i = randint(0, 8)
-
 
 def open_link():
     global i
@@ -220,6 +235,27 @@ class TestScreen(Screen):
                 len(instance_selection_list.get_selected_list_items())
             )
 
+    def on_start(self):
+        """Load the saved tasks and add them to the MDList widget when the application starts"""
+        try:
+            completed_tasks, uncomplete_tasks = db.get_tasks()
+
+            if uncomplete_tasks != []:
+                for task in uncomplete_tasks:
+                    add_task = ListItemWithCheckbox(pk=task[0], text=task[1], secondary_text=task[2])
+                    self.root.ids.container.add_widget(add_task)
+
+            if completed_tasks != []:
+                for task in completed_tasks:
+                    add_task = ListItemWithCheckbox(pk=task[0], text='[s]' + task[1] + '[/s]', secondary_text=task[2])
+                    add_task.ids.check.active = True
+                    self.root.ids.container.add_widget(add_task)
+        except Exception as e:
+            print(e)
+            pass
+
+
+
 
 #######
 class TaskScreen(Screen):
@@ -239,10 +275,10 @@ class TaskScreen(Screen):
         if not self.task_list_dialog:
             dialog_context = DialogContent()
             self.task_list_dialog = MDDialog(radius=[40, 40, 40, 40],
-                                             title="Создайте напоминание",
-                                             type="custom",
-                                             content_cls=dialog_context,
-                                             )
+                title="Создайте напоминание",
+                type="custom",
+                content_cls=dialog_context,
+            )
             dialog_context.set_parent_widget(self)
 
         self.task_list_dialog.open()
@@ -272,7 +308,7 @@ class DialogContent(MDBoxLayout):
         self.parent_widget = widget
 
     def show_date_picker(self):
-        date_dialog = MDDatePicker(radius=[40, 40, 40, 40], selector_color=get_color_from_hex("#e93f39"))
+        date_dialog = MDDatePicker(radius=[40, 40, 40, 40],selector_color=get_color_from_hex("#e93f39"))
         date_dialog.bind(on_save=self.on_save)
         date_dialog.open()
 
@@ -281,23 +317,58 @@ class DialogContent(MDBoxLayout):
         self.ids.date_text.text = str(date)
 
     def add_task(self, task, task_date):
+        created_task = db.create_task(task.text, task_date)
         print(task.text, task_date)
-        self.parent_widget.ids['container'].add_widget(
-            ListItemWithCheckbox(parent_widget=self.parent_widget, text='[b]' + task.text + '[/b]',
-                                 secondary_text=task_date))
+
+        # ХЭШТЕГИ
+        note_screen = self.parent_widget.manager.get_screen('note')
+        if '#СВ' in task.text or '#ВС' in task.text:
+            if note_screen.quickly == 'СДЕЛАТЬ':
+                note_screen.quickly = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find(
+                    '#') + 3:-1] + '\n'
+            else:
+                note_screen.quickly += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find(
+                    '#') + 3:-1] + '\n'
+        if '#НВ' in task.text or '#ВН' in task.text:
+            if note_screen.not_quickly == 'ЗАПЛАНИРОВАТЬ':
+                note_screen.not_quickly = str(task.text)[0:str(task.text).find('#')] + str(task.text)[
+                                                                                       str(task.text).find(
+                                                                                           '#') + 3:-1] + '\n'
+            else:
+                note_screen.not_quickly += str(task.text)[0:str(task.text).find('#')] + str(task.text)[
+                                                                                        str(task.text).find(
+                                                                                            '#') + 3:-1] + '\n'
+        if '#СН' in task.text or '#НС' in task.text:
+            if note_screen.awesome == 'ДЕЛЕГИРОВАТЬ':
+                note_screen.awesome = str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find(
+                    '#') + 3:-1] + '\n'
+            else:
+                note_screen.awesome += str(task.text)[0:str(task.text).find('#')] + str(task.text)[str(task.text).find(
+                    '#') + 3:-1] + '\n'
+        if '#НН' in task.text:
+            if note_screen.not_awesome == 'УДАЛИТЬ':
+                note_screen.not_awesome = str(task.text)[0:str(task.text).find('#')] + str(task.text)[
+                                                                                       str(task.text).find(
+                                                                                           '#') + 3:-1] + '\n'
+            else:
+                note_screen.not_awesome += str(task.text)[0:str(task.text).find('#')] + str(task.text)[
+                                                                                        str(task.text).find(
+                                                                                            '#') + 3:-1] + '\n'
+
+
+        self.parent_widget.ids['container'].add_widget(ListItemWithCheckbox(parent_widget=self.parent_widget, pk=created_task[0], text='[b]'+created_task[1]+'[/b]', secondary_text=created_task[2]))
         task.text = ''
-        # Увеличивает число на счётчике уведомлений
+
         menu_screen = self.parent_widget.manager.get_screen('menu')
         menu_screen.n = menu_screen.n + 1
-        # if '#' in task.text:
 
     def close_dialog(self, *args):
         self.parent_widget.task_list_dialog.dismiss()
 
 
+
 class MagicFAB(MagicBehavior, MDFillRoundFlatButton):
     pass
-
 
 class OptionScreen(Screen):
 
@@ -308,7 +379,6 @@ class OptionScreen(Screen):
         theme_dialog = MDThemePicker(radius=[40, 40, 40, 40])
         theme_dialog.open()
 
-
 class ListItemWithCheckbox(TwoLineAvatarIconListItem):
 
     def __init__(self, parent_widget, pk=None, **kwargs):
@@ -316,24 +386,25 @@ class ListItemWithCheckbox(TwoLineAvatarIconListItem):
         self.pk = pk
         self.parent_widget = parent_widget
 
+
     def mark(self, check, the_list_item):
         if check.active == True:
-            the_list_item.text = '[s]' + the_list_item.text + '[/s]'
+            the_list_item.text = '[s]'+the_list_item.text+'[/s]'
+            db.mark_task_as_complete(the_list_item.pk)  # here
         else:
-
+            the_list_item.text = str(db.mark_task_as_incomplete(the_list_item.pk))
             pass
 
     def delete_item(self, the_list_item):
         '''Delete the task'''
         self.parent.remove_widget(the_list_item)
-        # Уменьшает число на счетчике уведомлений
+        db.delete_task(the_list_item.pk)
+
         menu_screen = self.parent_widget.manager.get_screen('menu')
         menu_screen.n = menu_screen.n - 1
 
-
 class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
     '''Custom left container'''
-
 
 MainApp().run()
 
