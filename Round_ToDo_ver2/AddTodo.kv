@@ -1,0 +1,169 @@
+MDScreen:
+
+    #atributes
+    description: description
+    title:title
+#    back_color: back_color
+
+    name: "add_todo"
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "64sp"
+            pos_hint: {"y": .02}
+            theme_text_color: "Custom"
+            text_color: 1, 170/255, 23/255, 1
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+        MDLabel:
+            text: "Добавить дело:"
+            pos_hint: {"center_x": .6, "center_y": .88}
+            font_size: "35sp"
+            bold: True
+
+        MDFloatLayout:
+
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .78}
+            canvas:
+                Color:
+                    rgb: ( 238/255, 238/255, 238/255, 1)
+
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [25]
+
+            TextInput:
+
+                id: title
+                hint_text: "Название"
+                size_hint: 1, None
+                pos_hint: {"center_x": .5, "center_y": .57}
+                height: self.minimum_height
+                cursor_color: 1, 170/255, 23/255, 1
+                cursor_width: "2sp"
+                multiline: False
+                foreground_color: 1, 170/255, 23/255,
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+
+
+        MDFloatLayout:
+
+            size_hint: .85, .28
+            pos_hint: {"center_x": .5, "center_y": .58}
+            canvas:
+                Color:
+                    rgb: ( 238/255, 238/255, 238/255, 1)
+
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [25]
+
+            TextInput:
+
+                id: description
+                hint_text: "Описание"
+                size_hint: 1, None
+                pos_hint: {"center_x": .5, "center_y": .5}
+                height: 360
+                cursor_color: 1, 170/255, 23/255, 1
+                cursor_width: "2sp"
+                foreground_color: 1, 170/255, 23/255,
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+
+
+        MDFloatLayout:
+
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .38}
+            canvas:
+                Color:
+                    rgb: ( 238/255, 238/255, 238/255, 1)
+
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [25]
+
+        MDIconButton:
+            icon: 'calendar'
+            pos_hint: {"center_x": .15, "center_y": .38}
+            on_release:
+                pass
+
+
+
+        MDIconButton:
+
+            icon: "plus"
+
+            pos_hint : {"center_x": .5, "center_y": .16}
+            user_font_size: "30sp"
+            md_bg_color: 1, 170/255, 23/255, 1
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            on_release:
+                app.add_card(title.text, description.text, int(slider.value))
+
+        MDFloatLayout:
+
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .28}
+            canvas:
+                Color:
+                    rgb: ( 238/255, 238/255, 238/255, 1)
+
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [25]
+
+            MDSlider:
+                id:slider
+                pos_hint: {"center_x": .5, "center_y": .32}
+                min: 0
+                max: 4
+                value: 3
+                hint: True
+                humb_color_down: 1, 170/255, 23/255, 1
+
+        MDLabel:
+            pos_hint: {"center_x": .5, "center_y": .32}
+#            text: f"{int(slider.value)}"
+
+
+
+
+
+
+#Button:
+#        text: "Добавить"
+#        size_hint: 0.45, .08
+#        pos_hint : {"center_x": .5, "center_y": .36}
+#        background_color: 0, 0, 0, 0
+#        font_size: "18dp"
+#        color: 1, 1, 1, 1
+#        on_release:
+#            app.add_card(title.text, description.text)
+#        canvas.before:
+#            Color:
+#                rgb: ( 1, 170/255, 23/255, 1)
+#
+#            RoundedRectangle:
+#                size: self.size
+#                pos: self.pos
+#                radius: [25]
+
+
+
+
