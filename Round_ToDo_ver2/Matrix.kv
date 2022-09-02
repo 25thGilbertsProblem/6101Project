@@ -1,0 +1,108 @@
+MDScreen:
+
+    #atributes
+
+
+    name: "matrix_todo"
+
+
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "64sp"
+            pos_hint: {"y": .02}
+            theme_text_color: "Custom"
+            text_color: 1, 170/255, 23/255, 1
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+        MDLabel:
+            text: "Матрица дел:"
+            pos_hint: {"center_x": .56, "center_y": .95}
+            font_size: "35sp"
+            bold: True
+
+    MDFloatLayout:
+
+        size_hint: .9, .71
+        pos_hint: {"center_x": .5, "center_y": .545}
+        canvas:
+            Color:
+                rgb: ( 238/255, 238/255, 238/255, 1)
+
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [25]
+
+    #SV
+    MDTextField:
+        text: ""
+        size_hint_x: ".42"
+        size_hint_y: ".34"
+        pos_hint: {"center_x": .28, "center_y": .72}
+
+        hint_text: "СВ"
+        hint_text_color_normal: "black"
+        hint_text_color_focus: "black"
+        text_color_focus: "black"
+        line_color_focus: "red"
+        multiline: True
+        mode: "fill"
+
+        fill_color_normal:  "red"
+
+    #NV
+    MDTextField:
+        text: ""
+        size_hint_x: ".42"
+        size_hint_y: ".34"
+        pos_hint: {"center_x": .72, "center_y": .72}
+
+        hint_text:"НВ"
+        hint_text_color_normal: "black"
+        hint_text_color_focus: "black"
+        text_color_focus: "black"
+        line_color_focus: "orange"
+        multiline: True
+        mode: "fill"
+
+        fill_color_normal:  "orange"
+
+    #SN
+    MDTextField:
+        text: ""
+        size_hint_x: ".42"
+        size_hint_y: ".34"
+        pos_hint: {"center_x": .28, "center_y": .37}
+
+        hint_text:"СН"
+        hint_text_color_normal: "black"
+        hint_text_color_focus: "black"
+        text_color_focus: "black"
+        line_color_focus: "teal"
+        multiline: True
+        mode: "fill"
+
+        fill_color_normal:  "teal"
+
+    #NN
+    MDTextField:
+        text: ""
+        size_hint_x: ".42"
+        size_hint_y: ".34"
+        pos_hint: {"center_x": .72, "center_y": .37}
+
+        hint_text:"НН"
+        hint_text_color_normal: "black"
+        hint_text_color_focus: "black"
+        text_color_focus: "black"
+        line_color_focus: "green"
+        multiline: True
+        mode: "fill"
+
+        fill_color_normal:  "green"
+
